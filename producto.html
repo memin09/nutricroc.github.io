@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Nutricroc</title>
+  <link rel="icon" href="img/cocodrilo1.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styleproducto.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-top">
+
+      <nav class="header-nav nav-left">
+        <div class="nav-item">
+          <a href="index.html">Inicio</a>
+        </div>
+        <div class="nav-item">
+          <a href="tienda.html">Productos</a>
+          <div class="dropdown-menu">
+            <a href="tienda.html">Tienda Cuadrícula</a>
+            <a href="tienda.html">Tienda Lista</a>
+            <a href="producto.html">Detalles del Producto</a>
+            <a href="#">Carrito</a>
+            <a href="#">Pagar</a>
+          </div>
+        </div>
+        <div class="nav-item">
+           <div class="nav-item">
+          <a href="#">Sobre Nosotros</a>
+        </div>
+        </div>
+      </nav>
+
+     
+      <div class="header-center">
+        <h1 class="header-logo">
+          Nutricroc
+        </h1>
+      </div>
+
+     
+      <nav class="header-nav nav-right">
+        <div class="nav-item">
+         <div class="nav-item">
+          <a href="#">Preguntas Frecuentes</a>
+        </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Contacto</a>
+        </div>
+      </nav>
+
+     
+      <div class="header-icons">
+        <button class="icon-btn">
+          <span class="material-icons">person</span>
+        </button>
+        <button class="icon-btn">
+          <span class="material-icons">shopping_bag</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+ 
+  <div class="header-image">
+    <div class="header-image-content">
+      <h1 id="productTitle">Candy Lollipop</h1>
+    </div>
+  </div>
+
+
+  <div class="product-container">
+    <div class="product-main">
+      <div class="product-content">
+        <div class="product-images-left">
+          <div class="main-image">
+            <img id="currentImage" src="img/nutriblanco.jpeg" alt="Product">
+          </div>
+          <div class="thumbnails">
+            <img src="img/nutriblanco.jpeg" alt="thumb1" onclick="changeImage(this)">
+            <img src="img/nutriblanco.jpeg" alt="thumb2" onclick="changeImage(this)">
+            <img src="img/nutriblanco.jpeg" alt="thumb3" onclick="changeImage(this)">
+            <img src="img/nutriblanco.jpeg" alt="thumb4" onclick="changeImage(this)">
+          </div>
+        </div>
+        <div class="product-info-right">
+          <h2 id="productName">Candy Lollipop</h2>
+          <p class="price" id="productPrice">$15.00</p>
+          <p class="description" id="productDescription">
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+            Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend Leo.
+          </p>
+          <div class="add-to-cart">
+            <div class="quantity-input">
+              <input type="number" value="1" min="1">
+            </div>
+            <button>Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+      <div class="related-products-section">
+        <h3 class="related-title">Related products</h3>
+        <div class="related-products">
+          <div class="related-product" onclick="window.location.href='producto.html?id=1'">
+            <span class="sale-badge">Oferta!</span>
+            <div class="product-image-container">
+              <img src="img/nutriblanco.jpeg" alt="Gray">
+              <button class="add-to-cart-btn">+Carrito</button>
+            </div>
+            <h4>Gray</h4>
+            <div class="price">
+              <span class="old-price">$15.00</span>
+              $12.00
+            </div>
+          </div>
+          
+          <div class="related-product" onclick="window.location.href='producto.html?id=2'">
+            <span class="sale-badge">Oferta!</span>
+            <div class="product-image-container">
+              <img src="img/nutriblanco.jpeg" alt="Curt">
+              <button class="add-to-cart-btn">+Carrito</button>
+            </div>
+            <h4>Curt</h4>
+            <div class="price">
+              <span class="old-price">$20.00</span>
+              $18.00
+            </div>
+          </div>
+          
+          <div class="related-product" onclick="window.location.href='producto.html?id=3'">
+            <div class="product-image-container">
+              <img src="img/nutriblanco.jpeg" alt="Chocolate Bar">
+              <button class="add-to-cart-btn">+Carrito</button>
+            </div>
+            <h4>Chocolate Bar</h4>
+            <div class="price">$10.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="search-box">
+        <input type="text" placeholder="Buscar productos...">
+        <button><span class="material-icons">search</span></button>
+      </div>
+
+      <div class="widget">
+        <h3>Carrito</h3>
+        <p>No hay productos en el carrito.</p>
+      </div>
+
+      <div class="tags-widget">
+        <h3>Etiquetas</h3>
+        <div class="tags-container">
+          <a href="#" class="tag">Barras</a>
+          <a href="#" class="tag">Caramelos</a>
+          <a href="#" class="tag">Chocolate</a>
+          <a href="#" class="tag">Fruta</a>
+          <a href="#" class="tag">Nueces</a>
+          <a href="#" class="tag">Toffees</a>
+          <a href="#" class="tag">Mejor Valorados</a>
+          <a href="#" class="tag">Trufas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-section">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h2 class="footer-title">Nutricroc</h2>
+        <h3 class="footer-subtitle">Síguenos</h3>
+        <div class="social-icons">
+          <a href="#" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-pinterest"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-right">
+        <h3 class="footer-subtitle">Recibe Nuestras Noticias Dulces</h3>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Tu Dirección de Email" required>
+          <button type="submit" class="newsletter-btn">Suscribirse</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+    </div>
+    
+  </div>
+
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="js/producto.js">
+  </script>
+</body>
+</html>
