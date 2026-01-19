@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta - Nutricroc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.cdnfonts.com/css/argent-cf" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Menú Principal */
+    .main-menu {
+      background: #fff;
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      color: #7ed6a5;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: #7ed6a5;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #7ed6a5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Menú Hamburguesa */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 30px;
+      height: 21px;
+      position: relative;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: #333;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .menu-toggle span:nth-child(1) {
+      top: 0;
+    }
+
+    .menu-toggle span:nth-child(2) {
+      margin: 6px 0;
+    }
+
+    .menu-toggle span:nth-child(3) {
+      bottom: 0;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .user-panel-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .user-sidebar {
+      flex: 0 0 280px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+      padding: 30px;
+      height: fit-content;
+      position: sticky;
+      top: 30px;
+    }
+
+    .user-welcome {
+      margin-bottom: 30px;
+    }
+
+    .user-greeting {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .user-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .user-email {
+      color: #777;
+      font-size: 16px;
+    }
+
+    .user-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .user-menu-item {
+      margin-bottom: 8px;
+    }
+
+    .user-menu-link {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #555;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .user-menu-link i {
+      margin-right: 15px;
+      font-size: 18px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .user-menu-link:hover, .user-menu-link.active {
+      background: #f8fcf9;
+      color: #7ed6a5;
+    }
+
+    .user-menu-link.active {
+      font-weight: bold;
+      background: linear-gradient(to right, rgba(126, 214, 165, 0.1), transparent);
+    }
+
+    .user-content {
+      flex: 1;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+      padding: 40px;
+      min-height: 600px;
+      position: relative;
+    }
+
+    .user-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .user-section.active {
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      color: #7ed6a5;
+      margin-bottom: 30px;
+    }
+
+    /* Estilos para la sección de resumen - MEJORADOS */
+    .summary-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .summary-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 1px solid #f0f0f0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      min-height: 150px;
+    }
+
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, #7ed6a5, #5ac18e);
+    }
+
+    .summary-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    .summary-card-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-right: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .summary-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .summary-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .summary-card-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .summary-card-label {
+      color: #777;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .last-order-section {
+      margin-top: 20px;
+    }
+
+    .last-order-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #444;
+      font-weight: 600;
+    }
+
+    /* Estilos para la sección de pedidos - MÁS COMPACTO */
+    .orders-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .order-card {
+      background: #f8fcf9;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    .order-image {
+      width: 80px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .order-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .order-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .order-header-compact {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .order-amount-large {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .order-id-large {
+      font-size: 14px;
+      color: #777;
+      font-weight: normal;
+    }
+
+    .order-products-count {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .order-date-section {
+      margin-bottom: 10px;
+    }
+
+    .order-date-label {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 2px;
+    }
+
+    .order-date-value {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .order-status-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .order-status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #d4edda;
+      color: #155724;
+      margin-right: 15px;
+    }
+
+    .order-details-btn {
+      background: transparent;
+      border: 1px solid #7ed6a5;
+      color: #7ed6a5;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      font-weight: bold;
+    }
+
+    .order-details-btn:hover {
+      background: #7ed6a5;
+      color: white;
+    }
+
+    /* Estilos para secciones vacías */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #777;
+    }
+
+    .empty-image {
+      width: 250px;
+      height: 250px;
+      margin: 0 auto 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .empty-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .empty-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .empty-description {
+      font-size: 16px;
+      margin-bottom: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Estilos para la sección de cuenta */
+    .account-form {
+      max-width: 700px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fcfcfc;
+    }
+
+    .form-control:focus {
+      border-color: #7ed6a5;
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(126, 214, 165, 0.1);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .password-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .password-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .btn-save {
+      background: #7ed6a5;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-save:hover {
+      background: #63b784;
+      transform: translateY(-3px);
+    }
+
+    .btn-save i {
+      font-size: 16px;
+    }
+
+    /* Estilos para la sección de cerrar sesión */
+    .logout-section {
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    .logout-icon {
+      font-size: 80px;
+      color: #7ed6a5;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .logout-message {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #555;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* MODAL PARA DETALLES DE PEDIDO */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      width: 90%;
+      max-width: 1100px;
+      height: 85vh;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+
+    .modal-close:hover {
+      background-color: #f5f5f5;
+      color: #ff6b6b;
+    }
+
+    /* LADO IZQUIERDO - lista productos */
+    .modal-lista-productos {
+      width: 45%;
+      border-right: 1px solid #eee;
+      overflow-y: auto;
+      background: #fff;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-lista-productos h2 {
+      font-family: 'Classy Marisa';
+      color: #7ed6a5;
+      margin-bottom: 25px;
+      font-size: 32px;
+      text-align: center;
+      padding: 25px 25px 0;
+    }
+
+    .modal-productos-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 25px;
+    }
+
+    /* Estilo de productos sin animación de movimiento */
+    .modal-producto {
+      display: flex;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .modal-producto:hover {
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .modal-producto-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .modal-producto-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-producto-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-producto-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .modal-producto-price {
+      font-weight: bold;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .modal-producto-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-view-product {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #7ed6a5;
+      font-size: 18px;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: rgba(126, 214, 165, 0.1);
+    }
+
+    .modal-view-product:hover {
+      color: #63b784;
+      background-color: rgba(126, 214, 165, 0.2);
+    }
+
+    .modal-producto-name {
+      font-family: 'Classy Marisa';
+      font-size: 22px;
+      color: #000;
+      margin-top: 5px;
+    }
+
+    /* Scrollbar personalizado MEJORADO para productos */
+    .modal-productos-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-productos-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .modal-productos-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #7ed6a5, #5ac18e);
+      border-radius: 10px;
+    }
+
+    .modal-productos-container::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #63b784, #4a9e6f);
+    }
+
+    /* LADO DERECHO - Pantalla Principal REDISEÑADA */
+    .modal-pantalla-principal {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      background: #fff;
+      position: relative;
+    }
+
+    .modal-titulo-seccion {
+      font-family: 'Classy Marisa';
+      color: #7ed6a5;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 25px;
+      padding-top: 0;
+    }
+
+    .modal-contenido-principal {
+      flex: 1;
+      display: flex;
+      gap: 25px;
+      margin-top: 0;
+    }
+
+    .modal-seccion-imagen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-imagen-principal {
+      width: 100%;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .modal-imagen-principal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-seccion-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .modal-info-pedido {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .modal-info-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #444;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+    }
+
+    .modal-info-item:last-child {
+      margin-bottom: 0;
+      font-weight: bold;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .modal-info-valor {
+      color: #7ed6a5;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+    }
+
+    /* Sección de status del pedido */
+    .modal-status-pedido {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .modal-status-pedido label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 15px;
+      color: #444;
+      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+    }
+
+    .modal-status-value {
+      font-weight: 600;
+      font-size: 20px;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .modal-status-value.entregado {
+      background-color: #7ed6a5;
+    }
+
+    .modal-status-value.procesando {
+      background-color: #cce7ff;
+      color: #004085;
+    }
+
+    .modal-status-value.pendiente {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    /* PANTALLA DE DETALLES DEL PRODUCTO - MEJORADA */
+    .modal-detalles-producto {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      z-index: 10;
+      display: none;
+      flex-direction: column;
+      padding: 15px;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .modal-detalles-producto.active {
+      display: flex;
+      transform: translateX(0);
+    }
+    
+    .modal-detalles-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 0;
+      height: 35px;
+    }
+    
+    .modal-detalles-back {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    
+    .modal-detalles-back:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .modal-detalles-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 20px;
+    }
+    
+    .modal-detalles-imagen-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 220px;
+      margin-top: 5px;
+    }
+    
+    .modal-detalles-product-image {
+      width: 240px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .modal-detalles-product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .modal-detalles-info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 5px;
+    }
+    
+    .modal-detalles-product-name {
+      font-family: 'Parisienne', cursive;
+      font-size: 32px;
+      text-align: center;
+      margin: 0 0 20px 0;
+      color: #333;
+      line-height: 1.2;
+      width: 100%;
+      font-weight: 500;
+    }
+    
+    .modal-detalles-info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      margin-top: 5px;
+    }
+    
+    .modal-detalles-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: #444;
+      font-family: 'Marcellus', serif;
+      font-weight: 500;
+      padding: 8px 0;
+      width: 100%;
+    }
+    
+    .modal-detalles-info-item:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .modal-detalles-info-valor {
+      color: #7ed6a5;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+    }
+
+    /* Scrollbar personalizado MEJORADO para detalles de producto */
+    .modal-detalles-producto::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-detalles-producto::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .modal-detalles-producto::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #7ed6a5, #5ac18e);
+      border-radius: 10px;
+    }
+
+    .modal-detalles-producto::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #63b784, #4a9e6f);
+    }
+
+    /* =========================== */
+    /* RESPONSIVE STYLES - MEJORADOS */
+    /* =========================== */
+
+    /* Tablets y pantallas medianas */
+    @media (max-width: 992px) {
+      .user-panel-container {
+        flex-direction: column;
+      }
+      
+      .user-sidebar {
+        flex: 1;
+        position: static;
+        width: 100%;
+      }
+      
+      .summary-content {
+        flex-direction: column;
+      }
+      
+      .order-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .order-header-compact {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .order-status-section {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      
+      .modal-container {
+        flex-direction: column;
+        height: 90vh;
+        width: 95%;
+      }
+      
+      .modal-lista-productos,
+      .modal-pantalla-principal {
+        width: 100%;
+        height: 50%;
+      }
+      
+      .modal-lista-productos {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      .modal-contenido-principal {
+        flex-direction: column;
+      }
+
+      .modal-seccion-imagen {
+        height: 200px;
+      }
+    }
+
+    /* Dispositivos móviles */
+    @media (max-width: 768px) {
+      .menu-container {
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav-links a {
+        padding: 12px 0;
+        font-size: 18px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .user-panel-container {
+        margin: 15px auto;
+        padding: 0 15px;
+        gap: 20px;
+      }
+
+      .user-sidebar {
+        padding: 20px;
+      }
+
+      .user-content {
+        padding: 25px 20px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .summary-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .summary-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        min-height: auto;
+      }
+      
+      .summary-card-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+
+      .summary-card-value {
+        font-size: 24px;
+      }
+
+      .summary-card-label {
+        font-size: 14px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .order-card {
+        padding: 15px;
+      }
+
+      .order-image {
+        width: 70px;
+        height: 90px;
+      }
+
+      .order-amount-large {
+        font-size: 18px;
+      }
+
+      .order-status-badge {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      .order-status-section {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .empty-state {
+        padding: 40px 15px;
+      }
+
+      .empty-image {
+        width: 200px;
+        height: 200px;
+      }
+
+      .empty-title {
+        font-size: 18px;
+      }
+
+      .empty-description {
+        font-size: 14px;
+      }
+
+      .btn-save {
+        width: 100%;
+        justify-content: center;
+        padding: 15px 30px;
+      }
+
+      .modal-overlay {
+        padding: 10px;
+      }
+
+      .modal-container {
+        height: 95vh;
+        width: 100%;
+      }
+
+      .modal-lista-productos h2,
+      .modal-titulo-seccion {
+        font-size: 26px;
+        padding: 15px 15px 0;
+      }
+
+      .modal-productos-container {
+        padding: 0 15px;
+      }
+
+      .modal-producto {
+        padding: 12px;
+      }
+
+      .modal-producto-image {
+        width: 60px;
+        height: 60px;
+      }
+
+      .modal-producto-name {
+        font-size: 18px;
+      }
+
+      .modal-pantalla-principal {
+        padding: 15px;
+      }
+
+      .modal-info-pedido,
+      .modal-status-pedido {
+        padding: 15px;
+      }
+
+      .modal-info-item {
+        font-size: 14px;
+      }
+
+      .modal-detalles-product-name {
+        font-size: 26px;
+      }
+
+      .modal-detalles-info-item {
+        font-size: 14px;
+      }
+
+      .modal-detalles-product-image {
+        width: 200px;
+        height: 180px;
+      }
+    }
+
+    /* Dispositivos móviles pequeños */
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 28px;
+      }
+
+      .user-greeting {
+        font-size: 16px;
+      }
+
+      .user-name {
+        font-size: 20px;
+      }
+
+      .user-email {
+        font-size: 14px;
+      }
+
+      .user-menu-link {
+        padding: 12px 15px;
+        font-size: 14px;
+      }
+
+      .user-menu-link i {
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      .summary-card {
+        padding: 12px;
+      }
+
+      .summary-card-image {
+        width: 60px;
+        height: 60px;
+      }
+
+      .summary-card-value {
+        font-size: 20px;
+      }
+
+      .last-order-title {
+        font-size: 18px;
+      }
+
+      .order-card {
+        padding: 12px;
+      }
+
+      .order-image {
+        width: 60px;
+        height: 80px;
+      }
+
+      .order-amount-large {
+        font-size: 16px;
+      }
+
+      .order-id-large {
+        font-size: 12px;
+      }
+
+      .order-products-count,
+      .order-date-label,
+      .order-date-value {
+        font-size: 12px;
+      }
+
+      .order-details-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+
+      .form-control {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .btn-save {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+
+      .logout-icon {
+        font-size: 60px;
+      }
+
+      .logout-message {
+        font-size: 16px;
+      }
+
+      .modal-producto {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .modal-producto-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      .modal-producto-info {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .modal-detalles-product-image {
+        width: 180px;
+        height: 160px;
+      }
+
+      .modal-detalles-product-name {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menú Principal -->
+  <div class="main-menu">
+    <div class="menu-container">
+      <a href="index.html" class="logo">Nutricroc</a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tienda.html">Productos</a>
+        <a href="sobre-nosotros.html">Sobre Nosotros</a>
+        <a href="preguntas-frecuentes.html">Preguntas Frecuentes</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-panel-container">
+    <div class="user-sidebar">
+      <div class="user-welcome">
+        <div class="user-greeting">¡Hola,</div>
+        <div class="user-name">Benjamin Castañeda</div>
+        <div class="user-email">benjamincastareda783@gmail.com</div>
+      </div>
+      
+      <ul class="user-menu">
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link active" data-section="resumen">
+            <i class="fas fa-chart-pie"></i> Resumen
+          </a>
+        </li>
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link" data-section="pedidos">
+            <i class="fas fa-shopping-bag"></i> Mis Pedidos
+          </a>
+        </li>
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link" data-section="cuenta">
+            <i class="fas fa-user-cog"></i> Mi Cuenta
+          </a>
+        </li>
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link" data-section="direcciones">
+            <i class="fas fa-map-marker-alt"></i> Mis Direcciones
+          </a>
+        </li>
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link" data-section="contrasena">
+            <i class="fas fa-key"></i> Cambiar Contraseña
+          </a>
+        </li>
+        <li class="user-menu-item">
+          <a href="#" class="user-menu-link" data-section="logout">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="user-content">
+      <!-- Sección de Resumen - MEJORADA -->
+      <div class="user-section active" id="resumen">
+        <h2 class="section-title">Resumen</h2>
+        
+        <div class="summary-content">
+          <!-- Cuadros de resumen en la parte superior -->
+          <div class="summary-cards">
+            <div class="summary-card">
+              <div class="summary-card-image">
+                <img src="img/pedidostotales.png" alt="Pedidos Totales">
+              </div>
+              <div class="summary-card-content">
+                <div class="summary-card-value">5</div>
+                <div class="summary-card-label">Pedidos Totales</div>
+              </div>
+            </div>
+            
+            <div class="summary-card">
+              <div class="summary-card-image">
+                <img src="img/pedidospendiente.png" alt="Pedidos Pendientes">
+              </div>
+              <div class="summary-card-content">
+                <div class="summary-card-value">2</div>
+                <div class="summary-card-label">Pedidos Pendientes</div>
+              </div>
+            </div>
+            
+            <div class="summary-card">
+              <div class="summary-card-image">
+                <img src="img/Un cocodrilo reparti.png" alt="Pedidos Completados">
+              </div>
+              <div class="summary-card-content">
+                <div class="summary-card-value">3</div>
+                <div class="summary-card-label">Pedidos Completados</div>
+              </div>
+            </div>
+            
+            <div class="summary-card">
+              <div class="summary-card-image">
+                <img src="img/totalgastado.png" alt="Total Gastado">
+              </div>
+              <div class="summary-card-content">
+                <div class="summary-card-value">$342.00</div>
+                <div class="summary-card-label">Total Gastado</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Último pedido debajo de los cuadros -->
+            <div class="last-order-section">
+            <h3 class="last-order-title">Último Pedido</h3>
+            
+            <!-- Si hay pedidos, mostrar el último -->
+            <div class="orders-container">
+              <div class="order-card">
+                <div class="order-image">
+                  <img src="img/partedecompra.png" alt="Pastel de Vainilla">
+                </div>
+                <div class="order-info">
+                  <div class="order-header-compact">
+                    <div>
+                      <div class="order-amount-large">$298.20</div>
+                      <div class="order-id-large">#3001426939</div>
+                    </div>
+                    <div class="order-status-section">
+                      <span class="order-status-badge">ENTREGADO</span>
+                      <button class="order-details-btn" data-order-id="3001426939" data-order-status="entregado">Ver Detalles</button>
+                    </div>
+                  </div>
+                  <div class="order-products-count">1 producto</div>
+                  
+                  <div class="order-date-section">
+                    <div class="order-date-label">Fecha de pedido</div>
+                    <div class="order-date-value">12/08/2025</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Si no hay pedidos, mostrar estado vacío -->
+            <!-- 
+            <div class="empty-state">
+              <div class="empty-image">
+                <img src="img/cocodrilopedidos.png" alt="No hay pedidos">
+              </div>
+              <div class="empty-title">Aún no cuentas con pedidos</div>
+              <div class="empty-description">Realiza tu primer pedido y disfruta de nuestros deliciosos productos.</div>
+              <button class="btn-save">
+                <i class="fas fa-shopping-bag"></i> Ir a la Tienda
+              </button>
+            </div>
+            -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sección de Mis Pedidos - MÁS COMPACTO -->
+      <div class="user-section" id="pedidos">
+        <h2 class="section-title">Mis Pedidos</h2>
+        
+        <div class="orders-container">
+          <div class="order-card">
+            <div class="order-image">
+              <img src="img/partedecompra.png" alt="Pastel de Vainilla">
+            </div>
+            <div class="order-info">
+              <div class="order-header-compact">
+                <div>
+                  <div class="order-amount-large">$298.20</div>
+                  <div class="order-id-large">#3001426939</div>
+                </div>
+                <div class="order-status-section">
+                  <span class="order-status-badge">ENTREGADO</span>
+                  <button class="order-details-btn" data-order-id="3001426939" data-order-status="entregado">Ver Detalles</button>
+                </div>
+              </div>
+              <div class="order-products-count">1 producto</div>
+              
+              <div class="order-date-section">
+                <div class="order-date-label">Fecha de pedido</div>
+                <div class="order-date-value">12/08/2025</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="order-card">
+            <div class="order-image">
+              <img src="img/partedecompra.png" alt="Helado de Maple">
+            </div>
+            <div class="order-info">
+              <div class="order-header-compact">
+                <div>
+                  <div class="order-amount-large">$125.00</div>
+                  <div class="order-id-large">#3001426938</div>
+                </div>
+                <div class="order-status-section">
+                  <span class="order-status-badge" style="background: #cce7ff; color: #004085;">PROCESANDO</span>
+                  <button class="order-details-btn" data-order-id="3001426938" data-order-status="procesando">Ver Detalles</button>
+                </div>
+              </div>
+              <div class="order-products-count">2 productos</div>
+              
+              <div class="order-date-section">
+                <div class="order-date-label">Fecha de pedido</div>
+                <div class="order-date-value">10/08/2025</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-card">
+            <div class="order-image">
+              <img src="img/partedecompra.png" alt="Panquecitos de Chocolate">
+            </div>
+            <div class="order-info">
+              <div class="order-header-compact">
+                <div>
+                  <div class="order-amount-large">$84.00</div>
+                  <div class="order-id-large">#3001426937</div>
+                </div>
+                <div class="order-status-section">
+                  <span class="order-status-badge" style="background: #fff3cd; color: #856404;">PENDIENTE</span>
+                  <button class="order-details-btn" data-order-id="3001426937" data-order-status="pendiente">Ver Detalles</button>
+                </div>
+              </div>
+              <div class="order-products-count">1 producto</div>
+              
+              <div class="order-date-section">
+                <div class="order-date-label">Fecha de pedido</div>
+                <div class="order-date-value">05/08/2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sección de Mi Cuenta -->
+      <div class="user-section" id="cuenta">
+        <h2 class="section-title">Mi Cuenta</h2>
+        
+        <form class="account-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-control" value="Benjamin">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apellido</label>
+              <input type="text" class="form-control" value="Castañeda">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" value="benjamincastareda783@gmail.com">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" value="+1 234 567 8900">
+          </div>
+          
+          <button type="button" class="btn-save">
+            <i class="fas fa-save"></i> Guardar Cambios
+          </button>
+        </form>
+      </div>
+
+      <!-- Sección de Mis Direcciones -->
+      <div class="user-section" id="direcciones">
+        <h2 class="section-title">Mis Direcciones</h2>
+        
+        <!-- Estado vacío para cuando no hay direcciones -->
+        <div class="empty-state">
+          <div class="empty-image">
+            <img src="img/cocodrilodireccion.png" alt="No hay direcciones">
+          </div>
+          <div class="empty-title">No tienes direcciones guardadas</div>
+          <div class="empty-description">Agrega una dirección para facilitar tus compras futuras.</div>
+          <button class="btn-save">
+            <i class="fas fa-plus"></i> Agregar Dirección
+          </button>
+        </div>
+      </div>
+
+      <!-- Sección de Cambiar Contraseña -->
+      <div class="user-section" id="contrasena">
+        <h2 class="section-title">Cambiar Contraseña</h2>
+        
+        <form class="account-form">
+          <div class="form-group">
+            <label class="form-label">Contraseña Actual</label>
+            <input type="password" class="form-control" placeholder="Ingresa tu contraseña actual">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nueva Contraseña</label>
+              <input type="password" class="form-control" placeholder="Ingresa tu nueva contraseña">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" placeholder="Confirma tu nueva contraseña">
+            </div>
+          </div>
+          
+          <button type="button" class="btn-save">
+            <i class="fas fa-key"></i> Actualizar Contraseña
+          </button>
+        </form>
+      </div>
+      
+      <!-- Sección de Cerrar Sesión -->
+      <div class="user-section" id="logout">
+        <h2 class="section-title">Cerrar Sesión</h2>
+        
+        <div class="logout-section">
+          <div class="logout-icon">
+            <i class="fas fa-sign-out-alt"></i>
+          </div>
+          <div class="logout-message">
+            ¿Estás seguro de que deseas cerrar sesión? Podrás volver a iniciar sesión en cualquier momento.
+          </div>
+          <button class="btn-save" id="confirmLogout">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARA DETALLES DE PEDIDO -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal-container">
+      <button class="modal-close" id="modalClose">
+        <span class="material-icons">close</span>
+      </button>
+
+      <!-- Lado Izquierdo -->
+      <div class="modal-lista-productos">
+        <h2>Productos del Pedido</h2>
+        
+        <div class="modal-productos-container">
+          <div class="modal-producto">
+            <div class="modal-producto-image">
+              <img src="img/Espe3.jpeg" alt="Paleta Chocolate Rosa">
+            </div>
+            <div class="modal-producto-details">
+              <div class="modal-producto-info">
+                <div class="modal-producto-price">$15.00</div>
+                <div class="modal-producto-actions">
+                  <button class="modal-view-product" title="Ver detalles" data-producto="paleta">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="modal-producto-name">Tostada de Salmón, Aguacate y Huevo con Semillas</div>
+            </div>
+          </div>
+
+          <div class="modal-producto">
+            <div class="modal-producto-image">
+              <img src="img/Carte2.jpeg" alt="Cupcake Vainilla">
+            </div>
+            <div class="modal-producto-details">
+              <div class="modal-producto-info">
+                <div class="modal-producto-price">$40.00</div>
+                <div class="modal-producto-actions">
+                  <button class="modal-view-product" title="Ver detalles" data-producto="cupcake">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+                         <div class="modal-producto-name">Ensalada de Otoño con Manzana
+</div>
+              
+            </div>
+          </div>
+
+          <div class="modal-producto">
+            <div class="modal-producto-image">
+              <img src="img/Carte5.jpeg" alt="Galleta">
+            </div>
+            <div class="modal-producto-details">
+              <div class="modal-producto-info">
+                <div class="modal-producto-price">$30.00</div>
+                <div class="modal-producto-actions">
+                  <button class="modal-view-product" title="Ver detalles" data-producto="galleta">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="modal-producto-name">GEnvolturas de Lechuga de Pollo y Aguacate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lado Derecho - Pantalla Principal REDISEÑADA -->
+      <div class="modal-pantalla-principal">
+        <h2 class="modal-titulo-seccion">Características del Pedido</h2>
+        
+        <div class="modal-contenido-principal">
+          <!-- Sección de Imagen -->
+          <div class="modal-seccion-imagen">
+            <div class="modal-imagen-principal">
+              <img src="img/Un cocodrilo reparti.png" alt="Pedido de Productos">
+            </div>
+          </div>
+          
+          <!-- Sección de Controles -->
+          <div class="modal-seccion-controls">
+            <div class="modal-info-pedido">
+              <div class="modal-info-item">
+                <span>Productos en el pedido:</span>
+                <span class="modal-info-valor">3 productos</span>
+              </div>
+              <div class="modal-info-item">
+                <span>Cantidad total:</span>
+                <span class="modal-info-valor">6 unidades</span>
+              </div>
+              <div class="modal-info-item">
+                <span>Total pagado:</span>
+                <span class="modal-info-valor">$85.00</span>
+              </div>
+            </div>
+            
+            <!-- Sección de Status del Pedido -->
+            <div class="modal-status-pedido">
+              <label>Status del Pedido</label>
+              <div class="modal-status-value" id="modalStatusValue">En espera</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pantalla de Detalles del Producto - MEJORADA -->
+        <div class="modal-detalles-producto" id="modalDetallesProducto">
+          <div class="modal-detalles-header">
+            <button class="modal-detalles-back" id="modalDetallesBack">
+              <span class="material-icons">arrow_back</span>
+            </button>
+          </div>
+          
+          <div class="modal-detalles-content">
+            <div class="modal-detalles-imagen-container">
+              <div class="modal-detalles-product-image" id="modalDetallesProductImage">
+                <!-- La imagen se insertará dinámicamente -->
+              </div>
+            </div>
+            
+            <div class="modal-detalles-info-container">
+              <div class="modal-detalles-product-name" id="modalDetallesProductName"></div>
+              
+              <div class="modal-detalles-info-grid">
+                <div class="modal-detalles-info-item">
+                  <span>Cantidad:</span>
+                  <span class="modal-detalles-info-valor" id="modalDetallesCantidad"></span>
+                </div>
+                <div class="modal-detalles-info-item">
+                  <span>Precio Unitario:</span>
+                  <span class="modal-detalles-info-valor" id="modalDetallesPrecioUnitario"></span>
+                </div>
+                <div class="modal-detalles-info-item">
+                  <span>Total:</span>
+                  <span class="modal-detalles-info-valor" id="modalDetallesTotal"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navegación entre secciones del panel de usuario
+    document.querySelectorAll('.user-menu-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remover clase activa de todos los enlaces
+        document.querySelectorAll('.user-menu-link').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Agregar clase activa al enlace clickeado
+        this.classList.add('active');
+        
+        // Ocultar todas las secciones
+        document.querySelectorAll('.user-section').forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Mostrar la sección correspondiente
+        const sectionId = this.getAttribute('data-section');
+        document.getElementById(sectionId).classList.add('active');
+      });
+    });
+    
+    // Confirmación de cierre de sesión
+    document.getElementById('confirmLogout').addEventListener('click', function() {
+      if(confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        // Aquí iría la lógica real de cierre de sesión
+        alert('Sesión cerrada correctamente');
+        // window.location.href = 'index.html';
+      }
+    });
+
+    // Menú hamburguesa para móviles
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', function() {
+      this.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Cerrar menú al hacer clic en un enlace (en móviles)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function() {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // MODAL PARA DETALLES DE PEDIDO
+    const orderModal = document.getElementById('orderModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalDetallesProducto = document.getElementById('modalDetallesProducto');
+    const modalDetallesBack = document.getElementById('modalDetallesBack');
+    const modalDetallesProductImage = document.getElementById('modalDetallesProductImage');
+    const modalDetallesProductName = document.getElementById('modalDetallesProductName');
+    const modalDetallesCantidad = document.getElementById('modalDetallesCantidad');
+    const modalDetallesPrecioUnitario = document.getElementById('modalDetallesPrecioUnitario');
+    const modalDetallesTotal = document.getElementById('modalDetallesTotal');
+    const modalStatusValue = document.getElementById('modalStatusValue');
+
+    // Datos de productos para el modal
+    const productos = {
+      paleta: {
+        nombre: "Tostada de Salmón, Aguacate y Huevo con Semillas",
+        imagen: "img/Espe3.jpeg",
+        cantidad: 1,
+        precioUnidad: 15.00
+      },
+      cupcake: {
+        nombre: "Cupcake de Vainilla",
+        imagen: "https://images.unsplash.com/photo-1607083202193-3f4e4108c84a?w=500",
+        cantidad: 2,
+        precioUnidad: 20.00
+      },
+      galleta: {
+        nombre: "Galleta con Chispas",
+        imagen: "https://images.unsplash.com/photo-1604917877934-725b3ec9b1ef?w=500",
+        cantidad: 3,
+        precioUnidad: 10.00
+      }
+    };
+
+    // Abrir modal al hacer clic en "Ver Detalles"
+    document.querySelectorAll('.order-details-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const orderId = this.getAttribute('data-order-id');
+        const orderStatus = this.getAttribute('data-order-status');
+        
+        // Actualizar el estado del pedido en el modal según el pedido seleccionado
+        actualizarEstadoPedido(orderStatus);
+        
+        orderModal.classList.add('active');
+      });
+    });
+
+    // Función para actualizar el estado del pedido en el modal
+    function actualizarEstadoPedido(status) {
+      // Remover todas las clases de estado
+      modalStatusValue.classList.remove('entregado', 'procesando', 'pendiente');
+      
+      // Añadir la clase correspondiente y actualizar el texto
+      switch(status) {
+        case 'entregado':
+          modalStatusValue.classList.add('entregado');
+          modalStatusValue.textContent = 'ENTREGADO';
+          break;
+        case 'procesando':
+          modalStatusValue.classList.add('procesando');
+          modalStatusValue.textContent = 'PROCESANDO';
+          break;
+        case 'pendiente':
+          modalStatusValue.classList.add('pendiente');
+          modalStatusValue.textContent = 'PENDIENTE';
+          break;
+        default:
+          modalStatusValue.textContent = 'EN ESPERA';
+      }
+    }
+
+    // Cerrar modal
+    modalClose.addEventListener('click', function() {
+      orderModal.classList.remove('active');
+      // Asegurarse de que también se cierre la vista de detalles del producto
+      modalDetallesProducto.classList.remove('active');
+    });
+
+    // Cerrar modal al hacer clic fuera del contenido
+    orderModal.addEventListener('click', function(e) {
+      if (e.target === orderModal) {
+        orderModal.classList.remove('active');
+        // Asegurarse de que también se cierre la vista de detalles del producto
+        modalDetallesProducto.classList.remove('active');
+      }
+    });
+
+    // Mostrar detalles del producto en el modal
+    function mostrarDetallesProducto(id) {
+      const p = productos[id];
+      const total = p.cantidad * p.precioUnidad;
+      
+      modalDetallesProductName.textContent = p.nombre;
+      modalDetallesCantidad.textContent = p.cantidad;
+      modalDetallesPrecioUnitario.textContent = `$${p.precioUnidad.toFixed(2)}`;
+      modalDetallesTotal.textContent = `$${total.toFixed(2)}`;
+      
+      // Limpiar y agregar imagen
+      modalDetallesProductImage.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = p.imagen;
+      img.alt = p.nombre;
+      modalDetallesProductImage.appendChild(img);
+      
+      // Mostrar la pantalla de detalles con animación
+      modalDetallesProducto.style.display = 'flex';
+      setTimeout(() => {
+        modalDetallesProducto.classList.add('active');
+      }, 10);
+    }
+
+    // Ocultar detalles del producto en el modal
+    function ocultarDetallesProducto() {
+      modalDetallesProducto.classList.remove('active');
+      setTimeout(() => {
+        modalDetallesProducto.style.display = 'none';
+      }, 400);
+    }
+
+    // Agregar event listeners a los botones de vista en el modal
+    document.querySelectorAll('.modal-view-product').forEach((button) => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const productoId = this.getAttribute('data-producto');
+        mostrarDetallesProducto(productoId);
+      });
+    });
+
+    // Event listener para el botón de regresar en el modal
+    modalDetallesBack.addEventListener('click', ocultarDetallesProducto);
+  </script>
+</body>
+</html>

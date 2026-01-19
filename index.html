@@ -10,29 +10,55 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.cdnfonts.com/css/argent-cf" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- notificacion de producto agregado -->
+  <div class="notification" id="notification">
+    <div class="notification-content">
+      <span class="notification-icon">✓</span>
+      <span class="notification-text">El producto se agregó de manera exitosa</span>
+    </div>
+  </div>
+
+  <!-- notificacion de stock insuficiente -->
+  <div class="stock-notification" id="stockNotification">
+    <i class="fas fa-exclamation-circle"></i>
+    <h3>Stock insuficiente</h3>
+    <p>No contamos con suficiente stock para esta cantidad</p>
+  </div>
+
+  <!-- Notificación de correo enviado -->
+  <div class="email-sent-notification" id="emailSentNotification">
+    <i class="fas fa-check-circle"></i>
+    <span>Correo enviado con éxito</span>
+  </div>
+
+  <!-- Notificación de cantidad actualizada -->
+  <div class="notification" id="quantityUpdatedNotification">
+    <span class="notification-icon">✓</span>
+    <span>Cantidad actualizada correctamente</span>
+  </div>
+
   <header class="header">
     <div class="header-top">
+      <!-- Botón del menú hamburguesa para móviles -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <span class="material-icons">menu</span>
+      </button>
+
       <nav class="header-nav nav-left">
         <div class="nav-item">
-          <a href="tienda.html">Inicio</a>
+          <a href="#">Inicio</a>
         </div>
         <div class="nav-item">
-          <a href="tienda.html">Productos</a>
-          <div class="dropdown-menu">
-            <a href="tienda.html">Tienda Cuadrícula</a>
-            <a href="tienda.html">Tienda Lista</a>
-            <a href="producto.html">Detalles del Producto</a>
-            <a href="#">Carrito</a>
-            <a href="#">Pagar</a>
-          </div>
+          <a href="productos.html">Productos</a>
         </div>
         <div class="nav-item">
-           <div class="nav-item">
-          <a href="#">Sobre Nosotros</a>
-        </div>
+          <a href="mantenimiento.html">Sobre Nosotros</a>
         </div>
       </nav>
 
@@ -41,26 +67,213 @@
           Nutricroc
         </h1>
       </div>
+      
       <nav class="header-nav nav-right">
         <div class="nav-item">
-         <div class="nav-item">
-          <a href="#">Preguntas Frecuentes</a>
-        </div>
+          <a href="mantenimiento.html">Preguntas Frecuentes</a>
         </div>
         <div class="nav-item">
-          <a href="#">Contacto</a>
+          <a href="contacto.html">Contacto</a>
         </div>
       </nav>
+      
       <div class="header-icons">
-        <button class="icon-btn">
+        <button class="icon-btn" id="userBtn">
           <span class="material-icons">person</span>
         </button>
-        <button class="icon-btn">
+        <div class="user-dropdown" id="userDropdown">
+          <a href="#" id="loginLink">Iniciar Sesión</a>
+          <a href="#" id="registerLink">Registrarse</a>
+          <a href="#" id="accountLink" style="display: none;">Mi Cuenta</a>
+        </div>
+        <button class="icon-btn" id="cartBtn">
           <span class="material-icons">shopping_bag</span>
+          <span class="cart-count" id="cartCount">0</span>
         </button>
       </div>
     </div>
   </header>
+
+  <!-- Menú lateral móvil (más delgado y sin botones de usuario/carrito) -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <h2 class="mobile-nav-title">Nutricroc</h2>
+      <button class="close-mobile-nav" id="closeMobileNav">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    
+    <div class="mobile-nav-item">
+      <a href="#">Inicio</a>
+    </div>
+    
+    <div class="mobile-nav-item">
+      <a href="productos.html">Productos</a>
+    </div>
+    
+    <div class="mobile-nav-item">
+      <a href="mantenimiento.html">Sobre Nosotros</a>
+    </div>
+    
+    <div class="mobile-nav-item">
+      <a href="mantenimiento.html">Preguntas Frecuentes</a>
+    </div>
+    
+    <div class="mobile-nav-item">
+      <a href="contacto.html">Contacto</a>
+    </div>
+  </nav>
+
+  <!-- Modal de autenticación MEJORADO CON RECUPERACIÓN DE CONTRASEÑA -->
+  <div class="auth-overlay" id="authOverlay"></div>
+  <div class="auth-sidebar" id="authSidebar">
+    <div class="auth-header">
+      <h2 class="auth-title" id="authTitle">Iniciar Sesión</h2>
+      <button class="close-auth" id="closeAuth">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="auth-content">
+      <div class="auth-image">
+        <img src="img/loginnutricroc.png" alt="Imagen de autenticación" id="authImage">
+      </div>
+      <form class="auth-form" id="authForm">
+        <div class="form-group" id="nameField" style="display: none;">
+          <label for="name">Nombre completo</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <!-- NUEVO: Enlace "Olvidaste tu contraseña" -->
+        <div class="forgot-password-link">
+          <a href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="form-group" id="confirmPasswordField" style="display: none;">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <button type="submit" class="auth-btn" id="authSubmitBtn">Iniciar Sesión</button>
+      </form>
+      <div class="auth-switch">
+        <span id="authSwitchText">¿No tienes una cuenta? </span>
+        <a href="#" id="authSwitchLink">Regístrate</a>
+      </div>
+    </div>
+    
+    <!-- Recuperación de contraseña (NUEVO) -->
+    <div class="recovery-screen" id="recoveryScreen">
+      <div class="recovery-header">
+        <button class="recovery-back" id="recoveryBack">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <h2 class="recovery-title">Recuperar Contraseña</h2>
+      </div>
+      <div class="recovery-content">
+        <div class="recovery-image">
+          <img src="img/contraseña.png" alt="Recuperar contraseña">
+        </div>
+        <div class="recovery-message">
+          <p>Ingresa tu correo electrónico para restablecer tu contraseña. Te enviaremos un enlace de recuperación.</p>
+        </div>
+        <form class="recovery-form" id="recoveryForm">
+          <div class="form-group">
+            <label for="recoveryEmail">Correo electrónico</label>
+            <input type="email" id="recoveryEmail" name="recoveryEmail" required placeholder="ejemplo@correo.com">
+          </div>
+          <div class="form-group">
+            <label for="confirmRecoveryEmail">Confirmar correo electrónico</label>
+            <input type="email" id="confirmRecoveryEmail" name="confirmRecoveryEmail" required placeholder="ejemplo@correo.com">
+          </div>
+          <button type="submit" class="auth-btn" id="sendRecoveryBtn">Enviar correo de recuperación</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carrito de compras (pantalla completa en móviles) -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2 class="cart-title">Tu Carrito <span class="cart-count-title" id="cartCountTitle">(0)</span></h2>
+      <button class="close-cart" id="closeCart">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="cart-content">
+      <div class="cart-items-container" id="cartItemsContainer">
+        
+        <div class="cart-empty">
+          <div class="cart-empty-image"></div>
+          <p class="cart-empty-text">Aún no cuentas con productos</p>
+          <button class="discover-btn" onclick="window.location.href='productos.html'">Descubrir</button>
+        </div>
+      </div>
+      
+      <!-- Pantalla de edición -->
+      <div class="edit-screen" id="editScreen">
+        <div class="edit-header">
+          <button class="edit-back" id="editBack">
+            <span class="material-icons">arrow_back</span>
+          </button>
+        </div>
+        
+        <div class="edit-product-images" id="editProductImages">
+        </div>
+        
+        <div class="edit-product-info">
+          <div class="edit-product-name" id="editProductName"></div>
+          <div class="edit-product-price" id="editProductPrice"></div>
+        </div>
+        
+        <div class="edit-quantity-section">
+          <label class="edit-quantity-label">Cantidad</label>
+          <div class="edit-quantity-controls">
+            <button class="edit-quantity-btn" id="decreaseQuantity">-</button>
+            <input type="number" class="edit-quantity-input" id="editQuantityInput" min="1" value="1">
+            <button class="edit-quantity-btn" id="increaseQuantity">+</button>
+          </div>
+        </div>
+        
+        <div class="edit-actions">
+          <button class="save-btn" id="saveEditBtn">
+            <span class="save-text">GUARDAR</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Resumen del carrito -->
+      <div class="cart-summary" id="cartSummary">
+        <div class="cart-summary-title">Resumen</div>
+        <div class="cart-summary-details">
+          <div class="summary-row">
+            <span class="summary-label">Productos</span>
+            <span class="summary-value" id="summaryProductCount">0</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span class="summary-value" id="summarySubtotal">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Envío</span>
+            <span class="summary-value" id="summaryEnvio">Gratis</span>
+          </div>
+          <div class="cart-total">
+            <span class="summary-label">Total final</span>
+            <span class="cart-total-amount" id="summaryTotalAmount">$0.00</span>
+          </div>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">Comprar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="hero-section">
     <div class="hero-content">
       <h1 class="hero-title">Nutricroc</h1>
@@ -69,9 +282,9 @@
       <button class="explore-btn">Explorar</button>
       </a>
       <div class="small-images">
-        <img src="img/paletaLimon.jpg" alt="Postre 1" class="small-image">
-        <img src="img/heladochicle.jpg" alt="Postre 2" class="small-image">
-        <img src="img/heladolimos.jpg" alt="Postre 3" class="small-image">
+        <img src="img/principal1.jpeg" alt="Postre 1" class="small-image">
+        <img src="img/principal2.jpeg" alt="Postre 2" class="small-image">
+        <img src="img/principal3.jpeg" alt="Postre 3" class="small-image">
       </div>
     </div>
     <div class="hero-image-container">
@@ -81,74 +294,83 @@
         <img src="img/cocodrilo2.png" alt="Postre destacado 2" class="slider-image">
         <img src="img/cocodrilo3.png" alt="Postre destacado 3" class="slider-image"> 
       </div>
+      <!-- Círculos decorativos para responsive -->
+      <div class="responsive-circles">
+        <div class="circle olive-circle circle-1"></div>
+        <div class="circle olive-circle circle-2"></div>
+        <div class="circle yellowish-circle circle-3"></div>
+        <div class="circle yellowish-circle circle-4"></div>
+        <div class="circle muted-orange-circle circle-5"></div>
+        <div class="circle muted-orange-circle circle-6"></div>
+      </div>
     </div>
   </div>
+
   <section class="billboard-section">
     <h2 class="billboard-title">Cartelera</h2>
     <div class="billboard-grid">
       <div class="billboard-card">
         <div class="billboard-image-box">
-          <img src="img/bombones.jpg" alt="Postre 1">
+          <img src="img/Carte1.jpeg" alt="Postre 1">
         </div>
-        <h3>Bombones con chispitas</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
+        <h3>Ensalada Refrescante de Uvas, Feta/Mozzarella y Nueces</h3>
+        <p>Nuestros bombones con chispitas son una explosión de color y sabor en cada bocado.Un snack o aperitivo ligero y equilibrado. Combina la hidratación de las uvas con la proteína de los cubos de queso y grasas saludables de las nueces.</p>
+      </div>
+
+      <div class="billboard-card">
+         <div class="billboard-image-box">
+          <img src="img/Carte5.jpeg" alt="Postre 5">
+        </div>
+        <h3>Envolturas de Lechuga de Pollo y Aguacate</h3>
+        <p>Una comida completa, alta en proteína y baja en carbohidratos, que utiliza hojas de lechuga crujiente como base. Están rellenas de tiras de pollo a la parrilla, rebanadas de aguacate y, a menudo, trozos de tocino crujiente. Es una alternativa fresca y ligera a los wraps tradicionales.</p>
       </div>
 
       <div class="billboard-card">
         <div class="billboard-image-box">
-          <img src="img/panquesrosas.jpg" alt="Postre 2">
+          <img src="img/postreE3.jpeg" alt="Postre 3">
         </div>
-        <h3>Panquecitos de nuez</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
+        <h3>Ensalada de Otoño con Manzana, Nueces y Queso de Cabra</h3>
+        <p> Una ensalada nutritiva y completa que combina hojas verdes (como espinacas), manzanas frescas y ricas en fibra, trozos de nueces o pacanas para grasas saludables y proteína, y arándanos secos.</p>
       </div>
 
       <div class="billboard-card">
         <div class="billboard-image-box">
-          <img src="img/heladolimos.jpg" alt="Postre 3">
+          <img src="img/Carte4.jpeg" alt="Postre 4">
         </div>
-        <h3>Helado de limon</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
+        <h3>Envolturas de Lechuga de Ensalada de Pollo y Manzana</h3>
+        <p>Una opción baja en carbohidratos que utiliza hojas de lechuga como base. Están rellenas de una ensalada de pollo desmenuzado, trozos de manzana y arándanos secos, haciendo de este plato una comida ligera y proteica.</p>
+      </div>
+
+      <div class="billboard-card">
+         <div class="billboard-image-box">
+          <img src="img/Carte2.jpeg" alt="Postre 2">
+        </div>
+        <h3>Ensalada Power de Quinoa y Bayas con Pecanas</h3>
+        <p>Una ensalada nutritiva y completa con quinoa, arándanos, fresas y frambuesas  y nueces pecanas para grasas saludables.</p>
       </div>
 
       <div class="billboard-card">
         <div class="billboard-image-box">
-          <img src="img/heladochocolate.jpg" alt="Postre 4">
+          <img src="img/Carte6.jpeg" alt="Postre 6">
         </div>
-        <h3>Helado de chocolate</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
+        <h3>Tostada de Aguacate y Huevo con Semillas de Chía</h3>
+        <p>Un desayuno o snack completo y nutritivo. Consiste en pan integral  cubierto con aguacate triturado  y rodajas de huevo duro, espolvoreado con semillas de chía o de cáñamo para un impulso de Omega-3.</p>
+      </div>
+      
+      <div class="billboard-card">
+        <div class="billboard-image-box">
+          <img src="img/Carte7.jpeg" alt="Postre 5">
+        </div>
+        <h3>Tostada de Aguacate y Queso Halloumi a la Parrilla</h3>
+        <p>Un desayuno o brunch alto en proteína con pan de masa madre para la fibra, puré de aguacate y rodajas de queso Halloumi a la parrilla, ideal para una comida saciante y vegetariana.</p>
       </div>
 
       <div class="billboard-card">
-        <div class="billboard-image-box">
-          <img src="img/heladopistache.jpg" alt="Postre 5">
+       <div class="billboard-image-box">
+          <img src="img/Espe3.jpeg" alt="Postre 3">
         </div>
-        <h3>Helado de pistache</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
-      </div>
-
-      <div class="billboard-card">
-        <div class="billboard-image-box">
-          <img src="img/pastel.png" alt="Postre 6">
-        </div>
-        
-        <h3>Rebana de pastel frutos rojos</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
-      </div>
-      <div class="billboard-card">
-        <div class="billboard-image-box">
-          <img src="img/heladochicle.jpg" alt="Postre 5">
-        </div>
-        <h3>Helado de chicle</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
-      </div>
-
-      <div class="billboard-card">
-        <div class="billboard-image-box">
-          <img src="img/paletaLimon.jpg" alt="Postre 6">
-        </div>
-        
-        <h3>Paletas de limon</h3>
-        <p>Eleifend integer urna at, vel pharetra. Augue cras platea sed vitae sit, adipiscing ut.</p>
+        <h3>Tostada de Salmón, Aguacate y Huevo con Semillas</h3>
+        <p> Un desayuno completo con pan integral, salmón , aguacate y huevo frito, ideal para un impulso de energía sostenida.</p>
       </div>
     </div>
   </section>
@@ -157,29 +379,84 @@
     <h2 class="best-of-house-title">Lo mejor de la casa</h2>
     <div class="gallery">
       <div class="gallery-item item1">
-        <img src="img/donas.jpg" alt="Imagen 1">
+        <img src="img/postreC1.jpeg" alt="Imagen 1">
       </div>
       <div class="gallery-item item2">
-        <img src="img/pastel2.png" alt="Imagen 2">
+        <img src="img/postreC2.jpeg" alt="Imagen 2">
       </div>
       <div class="gallery-item item3">
-        <img src="img/panquecitos.jpg" alt="Imagen 3">
+        <img src="img/postreC3.jpeg" alt="Imagen 3">
       </div>
       <div class="gallery-item item4">
-        <img src="img/paleta.jpg" alt="Imagen 4">
+        <img src="img/postreC6.jpeg" alt="Imagen 4">
       </div>
       <div class="gallery-item item5">
-        <img src="img/paletashielo.jpg" alt="Imagen 5">
+        <img src="img/postreC5.jpeg" alt="Imagen 5">
       </div>
       <div class="gallery-item item6">
-        <img src="img/panquecitosespeciales.jpg" alt="Imagen 6">
+        <img src="img/postreC4.jpeg" alt="Imagen 6">
       </div>
     </div>
   </section>
 
-  <div class="container">
-  <!-- seccion futura-->
-  </div>
+  <section class="recipes-section">
+    <h2 class="recipes-title">Postres y Snacks Especiales</h2>
+    <div class="recipes">
+      <div class="card">
+        <img src="img/postreE1.jpeg" alt="Red Velvet Cake">
+        <div class="card-content">
+          <h3>Torre de Yogur, Avena y Bayas</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="img/postreE2.jpeg" alt="Avocado Ice Cream">
+        <div class="card-content">
+          <h3>Parfait de Chía/Avena de Matcha</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="img/postreE3.jpeg" alt="Vanilla Ice Cream">
+        <div class="card-content">
+          <h3>Ensalada de Otoño con Manzana</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="img/postreE4.jpeg" alt="Chocolate Macarons">
+        <div class="card-content">
+          <h3>Tostadas Integrales de Proteína y Grasas Saludables</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="img/postreE5.jpeg" alt="Homemade Ice Cream">
+        <div class="card-content">
+          <h3>Ensalada Power de Quinoa y Bayas con Pecanas</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="img/postreE6.jpeg" alt="Endless Flavor Cupcakes">
+        <div class="card-content">
+          <h3>Tostada Caprese de Tomates Cherry y Queso</h3>
+          <div class="underline-track"><div class="underline-fill"></div></div>
+          <p>Especial</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="footer-section">
     <div class="footer-container">
@@ -210,21 +487,15 @@
         </form>
       </div>
     </div>
-    
     <div class="footer-bottom">
     </div>
-    
   </div>
-
+  
   <button class="scroll-to-top" id="scrollToTop">
     <i class="fas fa-chevron-up"></i>
   </button>
-
+   
   <script src="js/index.js">
-
   </script>
-
 </body>
 </html>
-
-

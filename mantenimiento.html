@@ -1,0 +1,102 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página en Mantenimiento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Classy Marisa', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .container img {
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .container h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        /* BOTÓN */
+        .btn-inicio {
+            display: inline-block;
+            width: 300px; /* botón más largo */
+            padding: 16px 0;
+            background-color: #295732;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-inicio:hover {
+            background-color: #1f4526;
+            transform: scale(1.05);
+        }
+
+        /* ======== TABLET ======== */
+        @media (max-width: 768px) {
+            .container h1 {
+                font-size: 30px;
+            }
+
+            .btn-inicio {
+                width: 260px;
+                font-size: 17px;
+            }
+        }
+
+        /* ======== MÓVIL ======== */
+        @media (max-width: 480px) {
+            .container img {
+                max-width: 90%;
+                margin-bottom: 20px;
+            }
+
+            .container h1 {
+                font-size: 24px;
+            }
+
+            .btn-inicio {
+                width: 100%; /* botón ocupa casi toda la pantalla */
+                max-width: 320px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="img/mantenimiento.png" alt="Página en mantenimiento">
+        <h1>Página en mantenimiento</h1>
+        <a href="index.html" class="btn-inicio">Inicio</a>
+    </div>
+
+</body>
+</html>

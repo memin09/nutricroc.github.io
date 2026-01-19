@@ -1,0 +1,2879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Nutricroc</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Raleway:wght@500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f8fa;
+      color: #333;
+    }
+
+    /* ===== SIDEBAR MEJORADO ===== */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #7ed6a5 0%, #6bc894 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 15px;
+    }
+
+    .logo img {
+      width: 220px;
+      margin-bottom: 10px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: white;
+      padding: 16px 20px;
+      margin: 10px 0;
+      border-radius: 12px;
+      display: block;
+      transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .menu a:hover::before {
+      left: 100%;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateX(5px);
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .menu a.active {
+      background-color: rgba(255, 255, 255, 0.3);
+      font-weight: 700;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* HEADER SUPERIOR */
+    .header {
+      background: white;
+      padding: 20px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: #333;
+      font-weight: 700;
+    }
+
+    /* ===== CONTENEDOR PRINCIPAL ===== */
+    .main-container {
+      flex: 1;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      overflow: auto;
+    }
+
+    /* ===== TARJETAS DE MÉTRICAS ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #7ed6a5;
+    }
+
+    /* ===== SECCIÓN DE GRÁFICO ===== */
+    .chart-section {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+    }
+
+    canvas {
+      max-height: 340px;
+    }
+
+    /* ===== SECCIÓN DE PRODUCTOS ===== */
+    .products-section {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: none;
+    }
+
+    .products-section.active {
+      display: block;
+    }
+
+    .products-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background-color: #f9f7fe;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .stat-card h3 {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #a8d8ea;
+    }
+
+    .products-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .filter-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .filter-select {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      background-color: #f9f7fe;
+      color: #555;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: all 0.3s;
+      min-width: 220px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237ed6a5' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 12px;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      font-size: 1rem;
+    }
+
+    .filter-select:focus {
+      border-color: #a8d8ea;
+      box-shadow: 0 0 0 3px rgba(168, 216, 234, 0.2);
+    }
+
+    /* ===== BARRA DE BÚSQUEDA MEJORADA ===== */
+    .search-container {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border-radius: 30px;
+      border: 1px solid #e0e0e0;
+      background-color: #f9f7fe;
+      color: #555;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: all 0.3s;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .search-input:focus {
+      border-color: #a8d8ea;
+      box-shadow: 0 0 0 3px rgba(168, 216, 234, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7ed6a5;
+      font-size: 1.4rem;
+    }
+
+    /* ===== BOTÓN AGREGAR PRODUCTO ===== */
+    .add-product-btn, .add-employee-btn {
+      background-color: #7ed6a5;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(126, 214, 165, 0.3);
+    }
+
+    .add-product-btn:hover, .add-employee-btn:hover {
+      background-color: #6bc894;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(126, 214, 165, 0.4);
+    }
+
+    /* ===== TABLA MEJORADA ===== */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .products-table, .employees-table, .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    .products-table thead, .employees-table thead, .orders-table thead {
+      background-color: #a8d8ea;
+    }
+
+    .products-table th, .employees-table th, .orders-table th {
+      padding: 18px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: white;
+      border-bottom: 2px solid #97c9db;
+      font-size: 1.05rem;
+    }
+
+    .products-table td, .employees-table td, .orders-table td {
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .product-name, .employee-name, .order-id {
+      font-weight: 500;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    .product-category {
+      background-color: #f0e6f6;
+      color: #8a4baf;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .stock-status, .employee-status, .order-status {
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .stock-high {
+      background-color: #e6f7ee;
+      color: #2ecc71;
+    }
+
+    .stock-medium {
+      background-color: #fff4e6;
+      color: #f39c12;
+    }
+
+    .stock-low {
+      background-color: #fff4e6;
+      color: #f39c12;
+    }
+
+    .stock-out {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .status-active {
+      background-color: #e6f7ee;
+      color: #2ecc71;
+    }
+
+    .status-inactive {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .order-pending {
+      background-color: #fff4e6;
+      color: #f39c12;
+    }
+
+    .order-processing {
+      background-color: #e6f0ff;
+      color: #3498db;
+    }
+
+    .order-completed {
+      background-color: #e6f7ee;
+      color: #2ecc71;
+    }
+
+    .order-cancelled {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .product-price {
+      font-weight: 600;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .edit-btn {
+      background-color: #a8d8ea;
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background-color: #8bc9e1;
+      transform: translateY(-2px);
+    }
+
+    .delete-btn {
+      background-color: #f5b7b1;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background-color: #f1948a;
+      transform: translateY(-2px);
+    }
+
+    .view-btn {
+      background-color: #a8d8ea;
+      color: white;
+    }
+
+    .view-btn:hover {
+      background-color: #8bc9e1;
+      transform: translateY(-2px);
+    }
+
+    .cancel-btn {
+      background-color: #f5b7b1;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background-color: #f1948a;
+      transform: translateY(-2px);
+    }
+
+    .assign-btn {
+      background-color: #7ed6a5;
+      color: white;
+    }
+
+    .assign-btn:hover {
+      background-color: #6bc894;
+      transform: translateY(-2px);
+    }
+
+    /* ===== SECCIÓN DE CLIENTES ===== */
+    .clients-section {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: none;
+    }
+
+    .clients-section.active {
+      display: block;
+    }
+
+    .clients-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .clients-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .clients-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    .clients-table thead {
+      background-color: #a8d8ea;
+    }
+
+    .clients-table th {
+      padding: 18px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: white;
+      border-bottom: 2px solid #97c9db;
+      font-size: 1.05rem;
+    }
+
+    .clients-table td {
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .client-name {
+      font-weight: 500;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    .client-email {
+      color: #666;
+    }
+
+    .client-phone {
+      color: #666;
+    }
+
+    /* ===== SECCIÓN DE EMPLEADOS ===== */
+    .employees-section {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: none;
+    }
+
+    .employees-section.active {
+      display: block;
+    }
+
+    .employees-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .employees-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    /* ===== SECCIÓN DE PEDIDOS ===== */
+    .orders-section {
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 28px;
+      display: none;
+    }
+
+    .orders-section.active {
+      display: block;
+    }
+
+    .orders-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .orders-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 0.9rem;
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    /* ===== SECCIONES ===== */
+    .dashboard-section {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .section-hidden {
+      display: none;
+    }
+
+    /* ===== MODALES ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: white;
+      border-radius: 16px;
+      width: 85%;
+      max-width: 850px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      padding: 25px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      max-height: 90vh;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    /* Botón de cerrar modal */
+    .close-modal-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.3s;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .close-modal-btn:hover {
+      color: #333;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Título del modal */
+    .modal-header {
+      font-family: 'Pacifico', cursive;
+      font-size: 32px;
+      color: #4caf84;
+      margin: 0;
+      text-align: center;
+      letter-spacing: 0.6px;
+    }
+
+    .modal-header::after {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(to right, #7ed6a5, #5dc690);
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Contenido del modal */
+    .modal-content {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Sección de imágenes */
+    .images-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+      min-width: 280px;
+      max-width: 350px;
+    }
+
+    .main-image {
+      width: 280px;
+      height: 280px;
+      border: 2px dashed #7ed6a5;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fafafa;
+      color: #888;
+      font-size: 12px;
+      text-align: center;
+      overflow: hidden;
+      transition: 0.25s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .main-image:hover {
+      background-color: #f2fff7;
+    }
+
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .small-images {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .small-image {
+      width: 60px;
+      height: 60px;
+      border: 2px dashed #7ed6a5;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      cursor: pointer;
+      position: relative;
+      transition: 0.18s;
+      font-size: 12px;
+    }
+
+    .small-image:hover {
+      transform: scale(1.05);
+      background: #e6f9f0;
+    }
+
+    .small-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .drop-zone.drag-over {
+      background: #dff8eb;
+      border-color: #5dc690;
+    }
+
+    /* Sección del formulario */
+    .form-section {
+      flex: 1;
+      min-width: 280px;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-section label {
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 5px;
+      display: block;
+      font-size: 13px;
+    }
+
+    .form-section input[type="text"],
+    .form-section input[type="number"],
+    .form-section input[type="email"],
+    .form-section input[type="tel"],
+    .form-section select,
+    .form-section textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all .25s ease;
+      background: #fff;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .form-section input::placeholder,
+    .form-section textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    .form-section input:focus,
+    .form-section select:focus,
+    .form-section textarea:focus {
+      border-color: #7ed6a5;
+      box-shadow: 0 0 0 3px rgba(126,214,165,0.25);
+      outline: none;
+      background: #fff;
+    }
+
+    .form-section textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    /* Campos en línea */
+    .inline-fields {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .inline-fields > .field {
+      flex: 0 1 48%;
+      min-width: 120px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Botón guardar */
+    .save-button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      background: #7ed6a5;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .18s, background .18s, box-shadow .18s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    .save-button:hover {
+      transform: translateY(-2px);
+      background: #5dc690;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    /* MODIFICACIÓN: Eliminar scroll del modal de producto */
+    #productModal .modal {
+      overflow-y: hidden;
+    }
+
+    /* MODIFICACIÓN: Scroll solo en formulario del modal de empleado */
+    #employeeModal .modal {
+      overflow-y: hidden;
+    }
+    
+    #employeeModal .form-section {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    #employeeModal .form-section::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    #employeeModal .form-section::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    #employeeModal .form-section::-webkit-scrollbar-thumb {
+      background: #7ed6a5;
+      border-radius: 10px;
+    }
+    
+    #employeeModal .form-section::-webkit-scrollbar-thumb:hover {
+      background: #63b784;
+    }
+
+    /* ===== MODAL ASIGNAR EMPLEADO ===== */
+    #assignEmployeeModal .modal {
+      width: 90%;
+      max-width: 1100px;
+      height: 85vh;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .panel {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lista-productos {
+      width: 45%;
+      border-right: 1px solid #eee;
+      overflow: hidden;
+      background: #fff;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lista-productos h2 {
+      font-family: 'Great Vibes', cursive;
+      color: #7ed6a5;
+      margin-bottom: 25px;
+      font-size: 32px;
+      text-align: center;
+      padding: 25px 25px 0;
+    }
+
+    .productos-container {
+      flex: 1;
+      overflow: hidden;
+      padding: 0 25px;
+    }
+
+    .producto {
+      display: flex;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .producto:hover {
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .producto-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .producto-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .producto-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .producto-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .producto-price {
+      font-weight: bold;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .producto-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-product {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #7ed6a5;
+      font-size: 18px;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: rgba(126, 214, 165, 0.1);
+    }
+
+    .view-product:hover {
+      color: #63b784;
+      background-color: rgba(126, 214, 165, 0.2);
+    }
+
+    .producto-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: 22px;
+      color: #000;
+      margin-top: 5px;
+    }
+
+    .pantalla-principal {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      background: #fff;
+      position: relative;
+    }
+
+    .titulo-seccion {
+      font-family: 'Great Vibes', cursive;
+      color: #7ed6a5;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 25px;
+      padding-top: 0;
+    }
+
+    .contenido-principal {
+      flex: 1;
+      display: flex;
+      gap: 25px;
+      margin-top: 0;
+    }
+
+    .seccion-imagen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .imagen-principal {
+      width: 100%;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .imagen-principal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .seccion-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .info-pedido {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #444;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+    }
+
+    .info-item:last-child {
+      margin-bottom: 0;
+      font-weight: bold;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .info-valor {
+      color: #7ed6a5;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+    }
+
+    .asignacion-empleado {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .asignacion-empleado label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+      color: #444;
+      font-size: 16px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .custom-select {
+      position: relative;
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .custom-select select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #fff;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .custom-select select:hover {
+      color: #7ed6a5;
+      border-color: #7ed6a5;
+    }
+
+    .custom-select::after {
+      content: "▼";
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #7ed6a5;
+      font-size: 12px;
+    }
+
+    .custom-select select:focus {
+      border-color: #7ed6a5;
+      outline: none;
+    }
+
+    #assignEmployeeModal button {
+      width: 100%;
+      background-color: #7ed6a5;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #assignEmployeeModal button:hover {
+      background-color: #63b784;
+      transform: translateY(-2px);
+    }
+
+    .mensaje {
+      text-align: center;
+      color: #7ed6a5;
+      font-weight: 600;
+      margin-top: 12px;
+      display: none;
+      font-size: 15px;
+    }
+
+    .detalles-producto {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      z-index: 10;
+      display: none;
+      flex-direction: column;
+      padding: 15px;
+      overflow: hidden;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .detalles-producto.active {
+      display: flex;
+      transform: translateX(0);
+    }
+    
+    .detalles-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 0;
+      height: 35px;
+    }
+    
+    .detalles-back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 24px;
+    }
+    
+    /* MODIFICACIÓN: Estilo mejorado para la flecha de regreso */
+    .detalles-back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #7ed6a5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 28px;
+      box-shadow: none;
+    }
+    
+    .detalles-back:hover {
+      color: #5dc690;
+      background-color: rgba(126, 214, 165, 0.1);
+      transform: scale(1.1);
+    }
+    
+    .detalles-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 20px;
+      margin-top: 40px;
+      overflow: hidden;
+    }
+    
+    .detalles-imagen-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 220px;
+      margin-top: 5px;
+    }
+    
+    .detalles-product-image {
+      width: 240px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .detalles-product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .detalles-info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 5px;
+    }
+    
+    .detalles-product-name {
+      font-family: 'Parisienne', cursive;
+      font-size: 32px;
+      text-align: center;
+      margin: 0 0 20px 0;
+      color: #333;
+      line-height: 1.2;
+      width: 100%;
+      font-weight: 500;
+    }
+    
+    .detalles-info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      margin-top: 5px;
+    }
+    
+    .detalles-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: #444;
+      font-family: 'Marcellus', serif;
+      font-weight: 500;
+      padding: 8px 0;
+      width: 100%;
+    }
+    
+    .detalles-info-item:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .detalles-info-valor {
+      color: #7ed6a5;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+    }
+
+    /* MODIFICACIÓN: Botón de cierre "X" en la esquina superior derecha del modal */
+    #assignEmployeeModal .close-modal-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.3s;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    #assignEmployeeModal .close-modal-btn:hover {
+      color: #333;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .images-section {
+        min-width: 240px;
+        max-width: 300px;
+      }
+      
+      .form-section {
+        width: 100%;
+        max-width: 350px;
+        min-width: 240px;
+      }
+      
+      .inline-fields {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .inline-fields > .field {
+        flex: 1 1 100%;
+      }
+      
+      .main-image {
+        width: 240px;
+        height: 240px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="img/logonutricroc2.png" alt="Logo Nutricroc">
+    </div>
+
+    <nav class="menu">
+      <a href="#" class="menu-link active" data-section="dashboard">Dashboard</a>
+      <a href="#" class="menu-link" data-section="sales">Ventas</a>
+      <a href="#" class="menu-link" data-section="products">Productos</a>
+      <a href="#" class="menu-link" data-section="orders">Pedidos</a>
+      <a href="#" class="menu-link" data-section="clients">Clientes</a>
+      <a href="#" class="menu-link" data-section="employees">Empleados</a>
+      <a href="#" class="menu-link" data-section="settings">Configuración</a>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main">
+    <div class="header">
+      <h1 id="page-title">Panel de Control</h1>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-container">
+      
+      <!-- SECCIÓN DASHBOARD (INICIO) -->
+      <section id="dashboard" class="dashboard-section">
+        <!-- TARJETAS -->
+        <section class="cards">
+          <div class="card">
+            <h3>Ventas Hoy</h3>
+            <p>$2,340</p>
+          </div>
+          <div class="card">
+            <h3>Número de Clientes</h3>
+            <p>156</p>
+          </div>
+          <div class="card">
+            <h3>Clientes Nuevos (Mes)</h3>
+            <p>24</p>
+          </div>
+        </section>
+
+        <!-- GRÁFICO -->
+        <section class="chart-section">
+          <canvas id="salesChart"></canvas>
+        </section>
+      </section>
+
+      <!-- SECCIÓN DE PRODUCTOS -->
+      <section id="products" class="products-section">
+        <!-- Estadísticas de productos -->
+        <div class="products-stats">
+          <div class="stat-card">
+            <h3>Cantidad de Productos</h3>
+            <p>32</p>
+          </div>
+          <div class="stat-card">
+            <h3>Productos con Poco Stock</h3>
+            <p>7</p>
+          </div>
+          <div class="stat-card">
+            <h3>Productos sin Stock</h3>
+            <p>3</p>
+          </div>
+        </div>
+        
+        <!-- Controles de productos -->
+        <div class="products-controls">
+          <div class="filter-container">
+            <select class="filter-select" id="stockFilter">
+              <option value="all">Todos los productos</option>
+              <option value="low">Productos con poco stock</option>
+              <option value="out">Productos sin stock</option>
+            </select>
+            <div class="search-container">
+              <span class="search-icon material-icons">search</span>
+              <input type="text" class="search-input" id="productSearch" placeholder="Buscar productos...">
+            </div>
+          </div>
+          <button class="add-product-btn" id="addProductBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            Agregar Producto
+          </button>
+        </div>
+        
+        <!-- Tabla de productos -->
+        <div class="table-container">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="product-name">Galletas de Avena</td>
+                <td><span class="product-category">Galletas</span></td>
+                <td class="product-price">$4.50</td>
+                <td>45</td>
+                <td><span class="stock-status stock-high">En Stock</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="product-name">Brownie Saludable</td>
+                <td><span class="product-category">Brownies</span></td>
+                <td class="product-price">$6.00</td>
+                <td>12</td>
+                <td><span class="stock-status stock-medium">Stock Medio</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="product-name">Muffin de Zanahoria</td>
+                <td><span class="product-category">Muffins</span></td>
+                <td class="product-price">$5.50</td>
+                <td>0</td>
+                <td><span class="stock-status stock-out">Sin Stock</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="product-name">Barra de Granola</td>
+                <td><span class="product-category">Barras</span></td>
+                <td class="product-price">$3.80</td>
+                <td>28</td>
+                <td><span class="stock-status stock-high">En Stock</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="product-name">Pan Integral</td>
+                <td><span class="product-category">Panes</span></td>
+                <td class="product-price">$7.20</td>
+                <td>5</td>
+                <td><span class="stock-status stock-low">Poco Stock</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DE PEDIDOS -->
+      <section id="orders" class="orders-section">
+        <!-- Estadísticas de pedidos -->
+        <div class="orders-stats">
+          <div class="stat-card">
+            <h3>Número de Pedidos</h3>
+            <p>48</p>
+          </div>
+          <div class="stat-card">
+            <h3>Pedidos Cancelados</h3>
+            <p>5</p>
+          </div>
+          <div class="stat-card">
+            <h3>Pedidos Pendientes</h3>
+            <p>12</p>
+          </div>
+        </div>
+        
+        <!-- Controles de pedidos -->
+        <div class="orders-controls">
+          <div class="filter-container">
+            <select class="filter-select" id="orderStatusFilter">
+              <option value="all">Todos los pedidos</option>
+              <option value="pending">Pedidos pendientes</option>
+              <option value="cancelled">Pedidos cancelados</option>
+            </select>
+            <div class="search-container">
+              <span class="search-icon material-icons">search</span>
+              <input type="text" class="search-input" id="orderSearch" placeholder="Buscar pedidos...">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabla de pedidos -->
+        <div class="table-container">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>ID Pedido</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="order-id">#ORD-001</td>
+                <td class="client-name">María González</td>
+                <td>15/03/2024</td>
+                <td class="product-price">$15.00</td>
+                <td><span class="order-status order-pending">Pendiente</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn view-btn">Ver</button>
+                    <button class="action-btn cancel-btn">Cancelar</button>
+                    <button class="action-btn assign-btn" data-order-id="ORD-001">Asignar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="order-id">#ORD-002</td>
+                <td class="client-name">Carlos Rodríguez</td>
+                <td>22/04/2024</td>
+                <td class="product-price">$18.40</td>
+                <td><span class="order-status order-processing">En Proceso</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn view-btn">Ver</button>
+                    <button class="action-btn cancel-btn">Cancelar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="order-id">#ORD-003</td>
+                <td class="client-name">Ana Martínez</td>
+                <td>05/01/2024</td>
+                <td class="product-price">$15.50</td>
+                <td><span class="order-status order-completed">Completado</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn view-btn">Ver</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="order-id">#ORD-004</td>
+                <td class="client-name">Luis Fernández</td>
+                <td>18/05/2024</td>
+                <td class="product-price">$24.00</td>
+                <td><span class="order-status order-pending">Pendiente</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn view-btn">Ver</button>
+                    <button class="action-btn cancel-btn">Cancelar</button>
+                    <button class="action-btn assign-btn" data-order-id="ORD-004">Asignar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="order-id">#ORD-005</td>
+                <td class="client-name">Laura Sánchez</td>
+                <td>30/11/2023</td>
+                <td class="product-price">$14.80</td>
+                <td><span class="order-status order-cancelled">Cancelado</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn view-btn">Ver</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DE CLIENTES -->
+      <section id="clients" class="clients-section">
+        <!-- Estadísticas de clientes -->
+        <div class="clients-stats">
+          <div class="stat-card">
+            <h3>Número de Clientes</h3>
+            <p>156</p>
+          </div>
+          <div class="stat-card">
+            <h3>Clientes Nuevos por Mes</h3>
+            <p>24</p>
+          </div>
+        </div>
+        
+        <!-- Controles de clientes -->
+        <div class="clients-controls">
+          <div class="filter-container">
+            <select class="filter-select" id="statusFilter">
+              <option value="all">Todos los clientes</option>
+              <option value="active">Clientes activos</option>
+              <option value="inactive">Clientes inactivos</option>
+            </select>
+            <div class="search-container">
+              <span class="search-icon material-icons">search</span>
+              <input type="text" class="search-input" id="clientSearch" placeholder="Buscar clientes...">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabla de clientes -->
+        <div class="table-container">
+          <table class="clients-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="client-name">María González</td>
+                <td class="client-email">maria.gonzalez@email.com</td>
+                <td class="client-phone">+1 234 567 890</td>
+                <td>15/03/2024</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="client-name">Carlos Rodríguez</td>
+                <td class="client-email">carlos.rodriguez@email.com</td>
+                <td class="client-phone">+1 234 567 891</td>
+                <td>22/04/2024</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="client-name">Ana Martínez</td>
+                <td class="client-email">ana.martinez@email.com</td>
+                <td class="client-phone">+1 234 567 892</td>
+                <td>05/01/2024</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="client-name">Luis Fernández</td>
+                <td class="client-email">luis.fernandez@email.com</td>
+                <td class="client-phone">+1 234 567 893</td>
+                <td>18/05/2024</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="client-name">Laura Sánchez</td>
+                <td class="client-email">laura.sanchez@email.com</td>
+                <td class="client-phone">+1 234 567 894</td>
+                <td>30/11/2023</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="client-name">Pedro López</td>
+                <td class="client-email">pedro.lopez@email.com</td>
+                <td class="client-phone">+1 234 567 895</td>
+                <td>12/06/2024</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DE EMPLEADOS -->
+      <section id="employees" class="employees-section">
+        <!-- Estadísticas de empleados -->
+        <div class="employees-stats">
+          <div class="stat-card">
+            <h3>Total de Empleados</h3>
+            <p>15</p>
+          </div>
+          <div class="stat-card">
+            <h3>Empleados Activos</h3>
+            <p>12</p>
+          </div>
+          <div class="stat-card">
+            <h3>Empleados Inactivos</h3>
+            <p>3</p>
+          </div>
+        </div>
+        
+        <!-- Controles de empleados -->
+        <div class="employees-controls">
+          <div class="filter-container">
+            <select class="filter-select" id="employeeStatusFilter">
+              <option value="all">Todos los empleados</option>
+              <option value="active">Empleados activos</option>
+              <option value="inactive">Empleados inactivos</option>
+            </select>
+            <div class="search-container">
+              <span class="search-icon material-icons">search</span>
+              <input type="text" class="search-input" id="employeeSearch" placeholder="Buscar empleados...">
+            </div>
+          </div>
+          <button class="add-employee-btn" id="addEmployeeBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            Agregar Empleado
+          </button>
+        </div>
+        
+        <!-- Tabla de empleados -->
+        <div class="table-container">
+          <table class="employees-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="employee-name">Ana García</td>
+                <td>Gerente</td>
+                <td>ana.garcia@nutricroc.com</td>
+                <td>+1 234 567 800</td>
+                <td><span class="employee-status status-active">Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="employee-name">Carlos Mendoza</td>
+                <td>Vendedor</td>
+                <td>carlos.mendoza@nutricroc.com</td>
+                <td>+1 234 567 801</td>
+                <td><span class="employee-status status-active">Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="employee-name">Laura Torres</td>
+                <td>Repostera</td>
+                <td>laura.torres@nutricroc.com</td>
+                <td>+1 234 567 802</td>
+                <td><span class="employee-status status-active">Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="employee-name">Miguel Ángel</td>
+                <td>Vendedor</td>
+                <td>miguel.angel@nutricroc.com</td>
+                <td>+1 234 567 803</td>
+                <td><span class="employee-status status-inactive">Inactivo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="employee-name">Sofía Ramírez</td>
+                <td>Cajera</td>
+                <td>sofia.ramirez@nutricroc.com</td>
+                <td>+1 234 567 804</td>
+                <td><span class="employee-status status-active">Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn edit-btn">Editar</button>
+                    <button class="action-btn delete-btn">Eliminar</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- OTRAS SECCIONES (VACÍAS POR AHORA) -->
+      <section id="sales" class="dashboard-section section-hidden">
+        <div class="chart-section">
+          <p>Contenido de la sección de ventas en desarrollo...</p>
+        </div>
+      </section>
+
+      <section id="settings" class="dashboard-section section-hidden">
+        <div class="chart-section">
+          <p>Contenido de la sección de configuración en desarrollo...</p>
+        </div>
+      </section>
+    </div>
+
+    <footer></footer>
+  </div>
+
+  <!-- MODAL AGREGAR PRODUCTO - COMPACTO -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal">
+      <button class="close-modal-btn" id="closeProductModalBtn">×</button>
+      
+      <h1 class="modal-header">Crear nuevo producto</h1>
+
+      <div class="modal-content">
+        <!-- Sección izquierda (imágenes) -->
+        <div class="images-section">
+          <label for="mainImageInput" class="main-image drop-zone" id="mainImage">
+            <p>Haz clic o arrastra la imagen principal aquí</p>
+            <input id="mainImageInput" type="file" accept="image/*">
+          </label>
+
+          <div class="small-images">
+            <label for="smallImage1" class="small-image drop-zone">
+              <p>+</p>
+              <input id="smallImage1" type="file" accept="image/*">
+            </label>
+            <label for="smallImage2" class="small-image drop-zone">
+              <p>+</p>
+              <input id="smallImage2" type="file" accept="image/*">
+            </label>
+            <label for="smallImage3" class="small-image drop-zone">
+              <p>+</p>
+              <input id="smallImage3" type="file" accept="image/*">
+            </label>
+            <label for="smallImage4" class="small-image drop-zone">
+              <p>+</p>
+              <input id="smallImage4" type="file" accept="image/*">
+            </label>
+          </div>
+        </div>
+
+        <!-- Sección derecha (formulario) -->
+        <div class="form-section">
+          <div>
+            <label for="nombre">Nombre del producto</label>
+            <input id="nombre" type="text" placeholder="Ej. Paleta de chocolate rosa">
+          </div>
+
+          <div>
+            <label for="precio">Precio ($)</label>
+            <input id="precio" type="number" min="0" step="0.01" placeholder="Ej. 15.00">
+          </div>
+
+          <div>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" placeholder="Describe el producto..."></textarea>
+          </div>
+
+          <div class="inline-fields">
+            <div class="field">
+              <label for="stock">Stock</label>
+              <input id="stock" type="number" min="0" placeholder="Ej. 20">
+            </div>
+
+            <div class="field">
+              <label for="categoria">Categoría</label>
+              <select id="categoria">
+                <option value="">Selecciona una categoría</option>
+                <option value="Galletas">Galletas</option>
+                <option value="Brownies">Brownies</option>
+                <option value="Muffins">Muffins</option>
+                <option value="Barras">Barras</option>
+                <option value="Panes">Panes</option>
+                <option value="Paletas">Paletas</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="save-button" id="createProductBtn">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR EMPLEADO -->
+  <div class="modal-overlay" id="employeeModal">
+    <div class="modal">
+      <button class="close-modal-btn" id="closeEmployeeModalBtn">×</button>
+      
+      <h1 class="modal-header">Agregar nuevo empleado</h1>
+
+      <div class="modal-content">
+        <!-- Sección izquierda (imagen única) -->
+        <div class="images-section">
+          <label for="employeeImageInput" class="main-image drop-zone" id="employeeImage">
+            <p>Haz clic o arrastra la foto del empleado aquí</p>
+            <input id="employeeImageInput" type="file" accept="image/*">
+          </label>
+        </div>
+
+        <!-- Sección derecha (formulario) -->
+        <div class="form-section">
+          <div>
+            <label for="employeeNombre">Nombre completo</label>
+            <input id="employeeNombre" type="text" placeholder="Ej. Juan Pérez García">
+          </div>
+
+          <div>
+            <label for="employeePuesto">Puesto</label>
+            <input id="employeePuesto" type="text" placeholder="Ej. Vendedor, Repostero, etc.">
+          </div>
+
+          <div class="inline-fields">
+            <div class="field">
+              <label for="employeeEmail">Email</label>
+              <input id="employeeEmail" type="email" placeholder="ejemplo@nutricroc.com">
+            </div>
+
+            <div class="field">
+              <label for="employeeTelefono">Teléfono</label>
+              <input id="employeeTelefono" type="tel" placeholder="+1 234 567 890">
+            </div>
+          </div>
+
+          <div class="inline-fields">
+            <div class="field">
+              <label for="employeeSalario">Salario ($)</label>
+              <input id="employeeSalario" type="number" min="0" step="0.01" placeholder="Ej. 1500.00">
+            </div>
+
+            <div class="field">
+              <label for="employeeFecha">Fecha de contratación</label>
+              <input id="employeeFecha" type="date">
+            </div>
+          </div>
+
+          <div>
+            <label for="employeeDireccion">Dirección</label>
+            <textarea id="employeeDireccion" placeholder="Dirección completa del empleado..."></textarea>
+          </div>
+
+          <div>
+            <label for="employeeEstado">Estado del empleado</label>
+            <select id="employeeEstado">
+              <option value="active">Activo</option>
+              <option value="inactive">Inactivo</option>
+            </select>
+          </div>
+
+          <button class="save-button" id="createEmployeeBtn">Guardar Empleado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ASIGNAR EMPLEADO -->
+  <div class="modal-overlay" id="assignEmployeeModal">
+    <div class="modal">
+      <button class="close-modal-btn" id="closeAssignEmployeeModalBtn">×</button>
+      
+      <div class="panel">
+        <!-- Lado Izquierdo -->
+        <div class="lista-productos">
+          <h2>Productos del Pedido</h2>
+          
+          <div class="productos-container">
+            <div class="producto">
+              <div class="producto-image">
+                <img src="img/bombones.jpg" alt="Paleta Chocolate Rosa">
+              </div>
+              <div class="producto-details">
+                <div class="producto-info">
+                  <div class="producto-price">$15.00</div>
+                  <div class="producto-actions">
+                    <button class="view-product" title="Ver detalles" data-producto="paleta">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="producto-name">Paleta Chocolate Rosa</div>
+              </div>
+            </div>
+
+            <div class="producto">
+              <div class="producto-image">
+                <img src="https://images.unsplash.com/photo-1607083202193-3f4e4108c84a?w=500" alt="Cupcake Vainilla">
+              </div>
+              <div class="producto-details">
+                <div class="producto-info">
+                  <div class="producto-price">$40.00</div>
+                  <div class="producto-actions">
+                    <button class="view-product" title="Ver detalles" data-producto="cupcake">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="producto-name">Cupcake Vainilla</div>
+              </div>
+            </div>
+
+            <div class="producto">
+              <div class="producto-image">
+                <img src="https://images.unsplash.com/photo-1604917877934-725b3ec9b1ef?w=500" alt="Galleta">
+              </div>
+              <div class="producto-details">
+                <div class="producto-info">
+                  <div class="producto-price">$30.00</div>
+                  <div class="producto-actions">
+                    <button class="view-product" title="Ver detalles" data-producto="galleta">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="producto-name">Galleta con Chispas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lado Derecho - Pantalla Principal REDISEÑADA -->
+        <div class="pantalla-principal">
+          <h2 class="titulo-seccion">Características del Pedido</h2>
+          
+          <div class="contenido-principal">
+            <!-- Sección de Imagen -->
+            <div class="seccion-imagen">
+              <div class="imagen-principal">
+                <img src="img/Un cocodrilo reparti.png" alt="Pedido de Productos">
+              </div>
+            </div>
+            
+            <!-- Sección de Controles -->
+            <div class="seccion-controls">
+              <div class="info-pedido">
+                <div class="info-item">
+                  <span>Productos en el pedido:</span>
+                  <span class="info-valor">3 productos</span>
+                </div>
+                <div class="info-item">
+                  <span>Cantidad total:</span>
+                  <span class="info-valor">6 unidades</span>
+                </div>
+                <div class="info-item">
+                  <span>Total pagado:</span>
+                  <span class="info-valor">$85.00</span>
+                </div>
+              </div>
+              
+              <div class="asignacion-empleado">
+                <label for="empleado">Asignar a empleado:</label>
+                <div class="custom-select">
+                  <select id="empleado">
+                    <option value="">Selecciona un empleado</option>
+                    <option value="1">Andrea López</option>
+                    <option value="2">Carlos Rivera</option>
+                    <option value="3">María Pérez</option>
+                  </select>
+                </div>
+                <button id="concluirPedidoBtn">Concluir Pedido</button>
+                <div class="mensaje" id="mensaje">✅ Pedido Concluido</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pantalla de Detalles del Producto - MEJORADA -->
+          <div class="detalles-producto" id="detallesProducto">
+            <div class="detalles-header">
+              <button class="detalles-back" id="detallesBack">
+                <span class="material-icons">arrow_back</span>
+              </button>
+            </div>
+            
+            <div class="detalles-content">
+              <div class="detalles-imagen-container">
+                <div class="detalles-product-image" id="detallesProductImage">
+                  <!-- La imagen se insertará dinámicamente -->
+                </div>
+              </div>
+              
+              <div class="detalles-info-container">
+                <div class="detalles-product-name" id="detallesProductName"></div>
+                
+                <div class="detalles-info-grid">
+                  <div class="detalles-info-item">
+                    <span>Cantidad:</span>
+                    <span class="detalles-info-valor" id="detallesCantidad"></span>
+                  </div>
+                  <div class="detalles-info-item">
+                    <span>Precio Unitario:</span>
+                    <span class="detalles-info-valor" id="detallesPrecioUnitario"></span>
+                  </div>
+                  <div class="detalles-info-item">
+                    <span>Total:</span>
+                    <span class="detalles-info-valor" id="detallesTotal"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== GRÁFICO DE VENTAS =====
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+        datasets: [{
+          label: 'Ventas ($)',
+          data: [400, 700, 800, 650, 950, 1200, 900],
+          borderColor: '#7ed6a5',
+          backgroundColor: 'rgba(126, 214, 165, 0.2)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // ===== FILTRO DE PRODUCTOS =====
+    document.getElementById('stockFilter').addEventListener('change', function() {
+      const filterValue = this.value;
+      const rows = document.querySelectorAll('.products-table tbody tr');
+      
+      rows.forEach(row => {
+        const statusCell = row.querySelector('.stock-status');
+        let showRow = true;
+        
+        if (filterValue === 'low' && !statusCell.classList.contains('stock-low')) {
+          showRow = false;
+        } else if (filterValue === 'out' && !statusCell.classList.contains('stock-out')) {
+          showRow = false;
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+      });
+    });
+
+    // ===== BÚSQUEDA DE PRODUCTOS =====
+    document.getElementById('productSearch').addEventListener('input', function() {
+      const searchValue = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.products-table tbody tr');
+      
+      rows.forEach(row => {
+        const productName = row.querySelector('.product-name').textContent.toLowerCase();
+        row.style.display = productName.includes(searchValue) ? '' : 'none';
+      });
+    });
+
+    // ===== FILTRO DE PEDIDOS =====
+    document.getElementById('orderStatusFilter').addEventListener('change', function() {
+      const filterValue = this.value;
+      const rows = document.querySelectorAll('.orders-table tbody tr');
+      
+      rows.forEach(row => {
+        const statusCell = row.querySelector('.order-status');
+        let showRow = true;
+        
+        if (filterValue === 'pending' && !statusCell.classList.contains('order-pending')) {
+          showRow = false;
+        } else if (filterValue === 'cancelled' && !statusCell.classList.contains('order-cancelled')) {
+          showRow = false;
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+      });
+    });
+
+    // ===== BÚSQUEDA DE PEDIDOS =====
+    document.getElementById('orderSearch').addEventListener('input', function() {
+      const searchValue = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.orders-table tbody tr');
+      
+      rows.forEach(row => {
+        const orderId = row.querySelector('.order-id').textContent.toLowerCase();
+        const clientName = row.querySelector('.client-name').textContent.toLowerCase();
+        row.style.display = orderId.includes(searchValue) || clientName.includes(searchValue) ? '' : 'none';
+      });
+    });
+
+    // ===== FILTRO DE CLIENTES =====
+    document.getElementById('statusFilter').addEventListener('change', function() {
+      const filterValue = this.value;
+      const rows = document.querySelectorAll('.clients-table tbody tr');
+      
+      rows.forEach(row => {
+        const clientName = row.querySelector('.client-name').textContent.toLowerCase();
+        const clientEmail = row.querySelector('.client-email').textContent.toLowerCase();
+        let showRow = true;
+        
+        // Simular filtrado por estado (en una implementación real, esto vendría de una base de datos)
+        if (filterValue === 'active') {
+          // Mostrar solo algunos como "activos" para demostración
+          showRow = clientName.includes('maría') || clientName.includes('carlos') || clientName.includes('luis') || clientName.includes('pedro');
+        } else if (filterValue === 'inactive') {
+          // Mostrar solo algunos como "inactivos" para demostración
+          showRow = clientName.includes('ana') || clientName.includes('laura');
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+      });
+    });
+
+    // ===== BÚSQUEDA DE CLIENTES =====
+    document.getElementById('clientSearch').addEventListener('input', function() {
+      const searchValue = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.clients-table tbody tr');
+      
+      rows.forEach(row => {
+        const clientName = row.querySelector('.client-name').textContent.toLowerCase();
+        const clientEmail = row.querySelector('.client-email').textContent.toLowerCase();
+        row.style.display = clientName.includes(searchValue) || clientEmail.includes(searchValue) ? '' : 'none';
+      });
+    });
+
+    // ===== FILTRO DE EMPLEADOS =====
+    document.getElementById('employeeStatusFilter').addEventListener('change', function() {
+      const filterValue = this.value;
+      const rows = document.querySelectorAll('.employees-table tbody tr');
+      
+      rows.forEach(row => {
+        const statusCell = row.querySelector('.employee-status');
+        let showRow = true;
+        
+        if (filterValue === 'active' && !statusCell.classList.contains('status-active')) {
+          showRow = false;
+        } else if (filterValue === 'inactive' && !statusCell.classList.contains('status-inactive')) {
+          showRow = false;
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+      });
+    });
+
+    // ===== BÚSQUEDA DE EMPLEADOS =====
+    document.getElementById('employeeSearch').addEventListener('input', function() {
+      const searchValue = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.employees-table tbody tr');
+      
+      rows.forEach(row => {
+        const employeeName = row.querySelector('.employee-name').textContent.toLowerCase();
+        const employeePuesto = row.cells[1].textContent.toLowerCase();
+        row.style.display = employeeName.includes(searchValue) || employeePuesto.includes(searchValue) ? '' : 'none';
+      });
+    });
+
+    // ===== MODAL AGREGAR PRODUCTO =====
+    const productModal = document.getElementById('productModal');
+    const addProductBtn = document.getElementById('addProductBtn');
+    const closeProductModalBtn = document.getElementById('closeProductModalBtn');
+    const createProductBtn = document.getElementById('createProductBtn');
+
+    // Abrir modal de producto
+    addProductBtn.addEventListener('click', () => {
+      productModal.classList.add('active');
+    });
+
+    // Cerrar modal de producto
+    function closeProductModal() {
+      productModal.classList.remove('active');
+      // Limpiar formulario
+      document.getElementById('nombre').value = '';
+      document.getElementById('precio').value = '';
+      document.getElementById('descripcion').value = '';
+      document.getElementById('stock').value = '';
+      document.getElementById('categoria').value = '';
+      
+      // Limpiar imágenes
+      const mainImage = document.getElementById('mainImage');
+      mainImage.innerHTML = '<p>Haz clic o arrastra la imagen principal aquí</p><input id="mainImageInput" type="file" accept="image/*">';
+      
+      const smallImages = document.querySelectorAll('.small-image');
+      smallImages.forEach(smallImage => {
+        const inputId = smallImage.querySelector('input').id;
+        smallImage.innerHTML = '<p>+</p><input id="' + inputId + '" type="file" accept="image/*">';
+      });
+      
+      // Reconfigurar eventos después de limpiar
+      setupAllUploadZones();
+    }
+
+    closeProductModalBtn.addEventListener('click', closeProductModal);
+
+    // Cerrar modal al hacer clic fuera del contenido
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) {
+        closeProductModal();
+      }
+    });
+
+    // Crear producto
+    createProductBtn.addEventListener('click', () => {
+      // Aquí iría la lógica para guardar el producto
+      alert('Producto creado exitosamente');
+      closeProductModal();
+    });
+
+    // ===== MODAL AGREGAR EMPLEADO =====
+    const employeeModal = document.getElementById('employeeModal');
+    const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+    const closeEmployeeModalBtn = document.getElementById('closeEmployeeModalBtn');
+    const createEmployeeBtn = document.getElementById('createEmployeeBtn');
+
+    // Abrir modal de empleado
+    addEmployeeBtn.addEventListener('click', () => {
+      employeeModal.classList.add('active');
+    });
+
+    // Cerrar modal de empleado
+    function closeEmployeeModal() {
+      employeeModal.classList.remove('active');
+      // Limpiar formulario
+      document.getElementById('employeeNombre').value = '';
+      document.getElementById('employeePuesto').value = '';
+      document.getElementById('employeeEmail').value = '';
+      document.getElementById('employeeTelefono').value = '';
+      document.getElementById('employeeSalario').value = '';
+      document.getElementById('employeeFecha').value = '';
+      document.getElementById('employeeDireccion').value = '';
+      document.getElementById('employeeEstado').value = 'active';
+      
+      // Limpiar imagen
+      const employeeImage = document.getElementById('employeeImage');
+      employeeImage.innerHTML = '<p>Haz clic o arrastra la foto del empleado aquí</p><input id="employeeImageInput" type="file" accept="image/*">';
+      
+      // Reconfigurar eventos después de limpiar
+      setupEmployeeImageUpload();
+    }
+
+    closeEmployeeModalBtn.addEventListener('click', closeEmployeeModal);
+
+    // Cerrar modal al hacer clic fuera del contenido
+    employeeModal.addEventListener('click', (e) => {
+      if (e.target === employeeModal) {
+        closeEmployeeModal();
+      }
+    });
+
+    // Crear empleado
+    createEmployeeBtn.addEventListener('click', () => {
+      // Aquí iría la lógica para guardar el empleado
+      alert('Empleado agregado exitosamente');
+      closeEmployeeModal();
+    });
+
+    // ===== MODAL ASIGNAR EMPLEADO =====
+    const assignEmployeeModal = document.getElementById('assignEmployeeModal');
+    const closeAssignEmployeeModalBtn = document.getElementById('closeAssignEmployeeModalBtn');
+    const concluirPedidoBtn = document.getElementById('concluirPedidoBtn');
+    const mensaje = document.getElementById("mensaje");
+    const detallesProducto = document.getElementById("detallesProducto");
+    const detallesBack = document.getElementById("detallesBack");
+    const detallesProductImage = document.getElementById("detallesProductImage");
+    const detallesProductName = document.getElementById("detallesProductName");
+    const detallesCantidad = document.getElementById("detallesCantidad");
+    const detallesPrecioUnitario = document.getElementById("detallesPrecioUnitario");
+    const detallesTotal = document.getElementById("detallesTotal");
+
+    // Variable para almacenar el ID del pedido actual
+    let currentOrderId = null;
+
+    // Abrir modal de asignar empleado
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('assign-btn')) {
+        currentOrderId = e.target.getAttribute('data-order-id');
+        assignEmployeeModal.classList.add('active');
+      }
+    });
+
+    // Cerrar modal de asignar empleado
+    function closeAssignEmployeeModal() {
+      assignEmployeeModal.classList.remove('active');
+    }
+
+    closeAssignEmployeeModalBtn.addEventListener('click', closeAssignEmployeeModal);
+
+    // Cerrar modal al hacer clic fuera del contenido
+    assignEmployeeModal.addEventListener('click', (e) => {
+      if (e.target === assignEmployeeModal) {
+        closeAssignEmployeeModal();
+      }
+    });
+
+    // Concluir pedido
+    concluirPedidoBtn.addEventListener('click', () => {
+      const select = document.getElementById("empleado");
+      if (select.value === "") {
+        alert("Por favor selecciona un empleado antes de concluir el pedido.");
+      } else {
+        mensaje.style.display = "block";
+        
+        // Actualizar el estado del pedido en la tabla
+        if (currentOrderId) {
+          updateOrderStatus(currentOrderId, 'processing');
+        }
+        
+        setTimeout(() => {
+          mensaje.style.display = 'none';
+          closeAssignEmployeeModal();
+        }, 1500);
+      }
+    });
+
+    // Función para actualizar el estado del pedido en la tabla
+    function updateOrderStatus(orderId, status) {
+      const orderRow = document.querySelector(`.assign-btn[data-order-id="${orderId}"]`).closest('tr');
+      const statusCell = orderRow.querySelector('.order-status');
+      const actionButtons = orderRow.querySelector('.action-buttons');
+      
+      // Cambiar estado
+      statusCell.textContent = status === 'processing' ? 'En Proceso' : status;
+      statusCell.className = 'order-status ' + (status === 'processing' ? 'order-processing' : status);
+      
+      // Eliminar botón de asignar
+      const assignBtn = orderRow.querySelector('.assign-btn');
+      if (assignBtn) {
+        assignBtn.remove();
+      }
+    }
+
+    // ===== FUNCIONALIDAD DE DETALLES DE PRODUCTOS =====
+    const productos = {
+      paleta: {
+        nombre: "Paleta de Chocolate Rosa",
+        imagen: "img/bombones.jpg",
+        cantidad: 1,
+        precioUnidad: 15.00
+      },
+      cupcake: {
+        nombre: "Cupcake de Vainilla",
+        imagen: "https://images.unsplash.com/photo-1607083202193-3f4e4108c84a?w=500",
+        cantidad: 2,
+        precioUnidad: 20.00
+      },
+      galleta: {
+        nombre: "Galleta con Chispas",
+        imagen: "https://images.unsplash.com/photo-1604917877934-725b3ec9b1ef?w=500",
+        cantidad: 3,
+        precioUnidad: 10.00
+      }
+    };
+
+    // Mostrar detalles del producto
+    function mostrarDetallesProducto(id) {
+      const p = productos[id];
+      const total = p.cantidad * p.precioUnidad;
+      
+      detallesProductName.textContent = p.nombre;
+      detallesCantidad.textContent = p.cantidad;
+      detallesPrecioUnitario.textContent = `$${p.precioUnidad.toFixed(2)}`;
+      detallesTotal.textContent = `$${total.toFixed(2)}`;
+      
+      // Limpiar y agregar imagen
+      detallesProductImage.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = p.imagen;
+      img.alt = p.nombre;
+      detallesProductImage.appendChild(img);
+      
+      // Mostrar la pantalla de detalles con animación
+      detallesProducto.style.display = 'flex';
+      setTimeout(() => {
+        detallesProducto.classList.add('active');
+      }, 10);
+    }
+
+    // Ocultar detalles del producto
+    function ocultarDetallesProducto() {
+      detallesProducto.classList.remove('active');
+      setTimeout(() => {
+        detallesProducto.style.display = 'none';
+      }, 400);
+    }
+
+    // Agregar event listeners a los botones de vista
+    document.querySelectorAll('.view-product').forEach((button) => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const productoId = this.getAttribute('data-producto');
+        mostrarDetallesProducto(productoId);
+      });
+    });
+
+    // Event listener para el botón de regresar
+    detallesBack.addEventListener('click', ocultarDetallesProducto);
+
+    // ===== FUNCIONALIDAD MEJORADA DE SUBIR IMÁGENES =====
+    function setupUploadZone(labelEl) {
+      const input = labelEl.querySelector('input[type="file"]');
+
+      // Configurar clic en el label
+      labelEl.addEventListener('click', (e) => {
+        // Evitar que se dispare múltiples veces
+        if (e.target === labelEl || e.target.tagName === 'P') {
+          input.click();
+        }
+      });
+
+      // Configurar arrastrar y soltar
+      labelEl.addEventListener('dragover', e => {
+        e.preventDefault();
+        labelEl.classList.add('drag-over');
+      });
+      
+      labelEl.addEventListener('dragleave', e => {
+        labelEl.classList.remove('drag-over');
+      });
+      
+      labelEl.addEventListener('drop', e => {
+        e.preventDefault();
+        labelEl.classList.remove('drag-over');
+        const file = e.dataTransfer.files && e.dataTransfer.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona solo archivos de imagen');
+          return;
+        }
+        handleImageUpload(file, labelEl);
+      });
+
+      // Configurar cambio de archivo
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona solo archivos de imagen');
+          return;
+        }
+        handleImageUpload(file, labelEl);
+      });
+    }
+
+    // Función para manejar la subida de imágenes (sin botón de eliminar)
+    function handleImageUpload(file, labelEl) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        labelEl.innerHTML = `<img src="${reader.result}" alt="Imagen subida">`;
+        
+        // No agregar botón de eliminar, solo reemplazar la imagen al hacer clic nuevamente
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Configurar todas las zonas de subida de imágenes
+    function setupAllUploadZones() {
+      document.querySelectorAll('.drop-zone').forEach(setupUploadZone);
+    }
+
+    // Configurar específicamente la imagen del empleado
+    function setupEmployeeImageUpload() {
+      const employeeImage = document.getElementById('employeeImage');
+      const employeeImageInput = document.getElementById('employeeImageInput');
+      
+      // Configurar clic en el label
+      employeeImage.addEventListener('click', (e) => {
+        if (e.target === employeeImage || e.target.tagName === 'P') {
+          employeeImageInput.click();
+        }
+      });
+
+      // Configurar arrastrar y soltar
+      employeeImage.addEventListener('dragover', e => {
+        e.preventDefault();
+        employeeImage.classList.add('drag-over');
+      });
+      
+      employeeImage.addEventListener('dragleave', e => {
+        employeeImage.classList.remove('drag-over');
+      });
+      
+      employeeImage.addEventListener('drop', e => {
+        e.preventDefault();
+        employeeImage.classList.remove('drag-over');
+        const file = e.dataTransfer.files && e.dataTransfer.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona solo archivos de imagen');
+          return;
+        }
+        handleImageUpload(file, employeeImage);
+      });
+
+      // Configurar cambio de archivo
+      employeeImageInput.addEventListener('change', () => {
+        const file = employeeImageInput.files && employeeImageInput.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona solo archivos de imagen');
+          return;
+        }
+        handleImageUpload(file, employeeImage);
+      });
+    }
+
+    // Inicializar zonas de subida
+    setupAllUploadZones();
+    setupEmployeeImageUpload();
+
+    // ===== NAVEGACIÓN ENTRE SECCIONES =====
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remover clase active de todos los enlaces
+        document.querySelectorAll('.menu-link').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Agregar clase active al enlace clickeado
+        this.classList.add('active');
+        
+        // Ocultar todas las secciones
+        document.querySelectorAll('.dashboard-section, .products-section, .orders-section, .clients-section, .employees-section').forEach(section => {
+          section.classList.add('section-hidden');
+          section.classList.remove('active');
+        });
+        
+        // Mostrar la sección correspondiente
+        const sectionId = this.getAttribute('data-section');
+        const targetSection = document.getElementById(sectionId);
+        
+        if (sectionId === 'products' || sectionId === 'orders' || sectionId === 'clients' || sectionId === 'employees') {
+          targetSection.classList.add('active');
+        } else {
+          targetSection.classList.remove('section-hidden');
+        }
+        
+        // Actualizar título de la página
+        const pageTitle = document.getElementById('page-title');
+        const sectionTitles = {
+          'dashboard': 'Panel de Control',
+          'products': 'Gestión de Productos',
+          'orders': 'Gestión de Pedidos',
+          'clients': 'Gestión de Clientes',
+          'employees': 'Gestión de Empleados',
+          'sales': 'Ventas',
+          'settings': 'Configuración'
+        };
+        pageTitle.textContent = sectionTitles[sectionId];
+      });
+    });
+
+    // ===== FUNCIONALIDAD DE BOTONES DE PEDIDOS =====
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('view-btn')) {
+        // Lógica para ver el pedido
+        alert('Vista detallada del pedido');
+      }
+      
+      if (e.target.classList.contains('cancel-btn')) {
+        // Lógica para cancelar el pedido
+        if (confirm('¿Estás seguro de que deseas cancelar este pedido?')) {
+          alert('Pedido cancelado exitosamente');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
