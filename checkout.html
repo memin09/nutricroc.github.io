@@ -17,11 +17,66 @@
       box-sizing: border-box;
     }
 
+    /* ESTILOS PARA SCROLLBARS */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #295732;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #1e3d24;
+    }
+
+    /* Para Firefox */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #295732 #f1f1f1;
+    }
+
     body {
       font-family: 'Playfair Display', serif;
       background: #F5F5DC;
       color: #333;
       overflow-x: hidden;
+    }
+
+    /* PANTALLA DE TRANSICIÓN */
+    .transition-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .transition-screen.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .transition-image {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+      margin-bottom: 20px;
     }
 
     /* NOTIFICACIONES */
@@ -125,7 +180,7 @@
 
     .checkout-full-header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding: 20px 40px;
       border-bottom: 1px solid #eee;
@@ -136,28 +191,14 @@
 
     .checkout-full-title {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 30px;
       color: #295732;
       margin: 0;
     }
 
+    /* Se eliminó el botón de cerrar */
     .close-checkout-full {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      transition: background-color 0.3s ease;
-    }
-
-    .close-checkout-full:hover {
-      background-color: #f5f5f5;
+      display: none;
     }
 
     .checkout-full-content {
@@ -169,20 +210,21 @@
     /* PANEL IZQUIERDO: RESUMEN DE COMPRA */
     .checkout-left-panel {
       flex: 1;
-  background:  white;
-  padding: 30px;
-  overflow: hidden;
-  border-right: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
+      background:  white;
+      padding: 30px;
+      overflow: hidden;
+      border-right: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
     }
+    
     .checkout-summary-header {
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 5;
-  padding-bottom: 15px;
-}
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 5;
+      padding-bottom: 15px;
+    }
 
     .checkout-summary-fixed {
       margin-bottom: 30px;
@@ -196,10 +238,10 @@
     }
 
     .checkout-summary-title {
-font-size: 18px;
-  font-weight: bold;
-  color: #295732;
-  margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #295732;
+      margin-bottom: 15px;
     }
 
     .checkout-summary-count {
@@ -211,32 +253,42 @@ font-size: 18px;
     }
 
     .checkout-products-list {
-       flex: 1;
-  overflow-y: auto;
-  padding-right: 10px;
-  margin: 20px 0;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin: 20px 0;
     }
+    
+    /* Scroll personalizado para lista de productos */
+    .checkout-products-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .checkout-products-list::-webkit-scrollbar-thumb {
+      background: #295732;
+    }
+    
     .checkout-summary-footer {
-  position: sticky;
-  bottom: 0;
-  background: white;
-  padding-top: 15px;
-  border-top: 1px solid #ddd;
-}
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
 
     .checkout-product-item {
       display: flex;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e5e5e5;
     }
 
     .checkout-product-image {
       width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-right: 15px;
+      height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-right: 15px;
     }
 
     .checkout-product-image img {
@@ -250,18 +302,18 @@ font-size: 18px;
     }
 
     .checkout-product-name {
-       font-size: 16px;
-  font-weight: 600;
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .checkout-product-quantity {
       font-size: 14px;
-  color: #777;
+      color: #777;
     }
 
     .checkout-product-price {
       font-weight: bold;
-  margin-top: 5px;
+      margin-top: 5px;
     }
 
     .checkout-summary-total {
@@ -272,8 +324,8 @@ font-size: 18px;
 
     .summary-total-row {
       display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
 
     .summary-total-label {
@@ -286,11 +338,11 @@ font-size: 18px;
     }
 
     .summary-grand-total {
-     font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #ccc;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
     }
 
     /* PANEL DERECHO: PASOS DEL CHECKOUT */
@@ -300,6 +352,15 @@ font-size: 18px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+    }
+    
+    /* Scroll personalizado para panel derecho */
+    .checkout-right-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .checkout-right-panel::-webkit-scrollbar-thumb {
+      background: #295732;
     }
 
     /* BARRA DE PROGRESO */
@@ -447,6 +508,17 @@ font-size: 18px;
       box-sizing: border-box;
     }
 
+    /* Cambiar color del texto de selects a negro */
+    .form-group select option {
+      color: #000 !important;
+      background-color: white;
+    }
+
+    .form-group select {
+      color: #000 !important;
+      background-color: white;
+    }
+
     .form-group textarea {
       resize: vertical;
       min-height: 80px;
@@ -462,6 +534,7 @@ font-size: 18px;
     .form-group select:disabled {
       background-color: #f5f5f5;
       cursor: not-allowed;
+      color: #666 !important;
     }
 
     /* Personalización de selects para móviles */
@@ -470,16 +543,18 @@ font-size: 18px;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23295732' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
         background-repeat: no-repeat;
         background-position: right 15px center;
         background-size: 16px;
         padding-right: 45px;
+        color: #000 !important;
       }
       
       .form-group select:disabled {
         background-color: #f5f5f5;
         opacity: 0.7;
+        color: #666 !important;
       }
     }
 
@@ -644,7 +719,7 @@ font-size: 18px;
     }
 
     .confirmation-title {
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Classy Marisa';
       font-size: 40px;
       color: #295732;
       margin-bottom: 25px;
@@ -672,7 +747,7 @@ font-size: 18px;
 
     .nav-btn {
       flex: 1;
-      background: #6F4E37;
+      background: #295732;
       color: white;
       border: none;
       padding: 16px;
@@ -685,17 +760,29 @@ font-size: 18px;
     }
 
     .nav-btn:hover {
-      background: #5a3d2a;
+      background: #295732;
       transform: translateY(-3px);
     }
 
     .nav-btn-secondary {
-      background: #eee;
+      background: #A8C9A8;
       color: #333;
     }
 
     .nav-btn-secondary:hover {
-      background: #ddd;
+      background: #A8C9A8;
+    }
+
+    .nav-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.6;
+    }
+
+    .nav-btn:disabled:hover {
+      background-color: #cccccc;
+      transform: none;
     }
 
     .reenviar-correo-btn {
@@ -764,22 +851,14 @@ font-size: 18px;
       100% { transform: rotate(360deg); }
     }
 
-    /* BOTÓN PARA ABRIR EL CHECKOUT (DEMO) */
+    /* BOTÓN PARA ABRIR EL CHECKOUT (DEMO) - ELIMINADO */
     .demo-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #295732;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: none;
+    }
+
+    /* BOTÓN X PARA MÓVILES - OCULTADO */
+    .mobile-close-btn {
+      display: none !important;
     }
 
     /* RESPONSIVE */
@@ -828,6 +907,7 @@ font-size: 18px;
       /* Ajustes para móviles */
       .checkout-full-header {
         padding: 15px 20px;
+        position: relative;
       }
       
       .checkout-right-panel {
@@ -914,16 +994,20 @@ font-size: 18px;
         font-size: 16px;
       }
       
+      /* Ajustar imagen de transición para móviles */
+      .transition-image {
+        width: 200px;
+        height: 200px;
+      }
+      
       /* PREVENIR ZOOM AL HACER FOCUS EN CAMPOS DE ENTRADA EN MÓVILES */
-      /* Esto evita el zoom automático en iOS Safari y otros navegadores móviles */
       .form-group input,
       .form-group select,
       .form-group textarea,
       .card-fields input {
-        font-size: 16px !important; /* Tamaño mínimo para evitar zoom */
+        font-size: 16px !important;
       }
       
-      /* Para Safari en iOS */
       @supports (-webkit-touch-callout: none) {
         .form-group input,
         .form-group select,
@@ -935,7 +1019,6 @@ font-size: 18px;
         }
       }
       
-      /* Para Chrome en Android */
       @media screen and (-webkit-min-device-pixel-ratio: 0) {
         .form-group input,
         .form-group select,
@@ -950,7 +1033,7 @@ font-size: 18px;
 
     @media (max-width: 480px) {
       .checkout-full-title {
-        font-size: 20px;
+        font-size: 30px;
       }
       
       .step-title {
@@ -998,12 +1081,19 @@ font-size: 18px;
         padding: 14px;
         font-size: 15px;
       }
+      
+      .transition-image {
+        width: 180px;
+        height: 180px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Botón para abrir el checkout (para demo) -->
-  <button class="demo-btn" id="openCheckoutBtn">Abrir Checkout</button>
+  <!-- Pantalla de transición simplificada -->
+  <div class="transition-screen" id="transitionScreen">
+    <img src="img/compra.png" alt="Redirigiendo" class="transition-image">
+  </div>
 
   <!-- Notificaciones -->
   <div class="notification" id="notification">
@@ -1027,11 +1117,9 @@ font-size: 18px;
 
   <!-- Pantalla completa de checkout -->
   <div class="checkout-fullscreen" id="checkoutFullscreen">
+    
     <div class="checkout-full-header">
-      <h2 class="checkout-full-title">Finalizar compra</h2>
-      <button class="close-checkout-full" id="closeCheckoutFull">
-        <span class="material-icons">close</span>
-      </button>
+      <h2 class="checkout-full-title">Nutricroc</h2>
     </div>
     
     <div class="checkout-full-content">
@@ -1219,7 +1307,7 @@ font-size: 18px;
           
           <div class="checkout-navigation">
             <button class="nav-btn nav-btn-secondary" id="backToDeliveryBtn">Volver a entrega</button>
-            <button class="nav-btn" id="processPaymentBtn">Continuar con el pago</button>
+            <button class="nav-btn" id="processPaymentBtn" disabled>Continuar con el pago</button>
           </div>
         </div>
         
@@ -1275,36 +1363,16 @@ font-size: 18px;
 
   <script>
     // Variables globales
-    let cartItems = [
-      {
-        id: 1,
-        name: "Ensalada Refrescante de Uvas",
-        price: "25.00",
-        image: "https://via.placeholder.com/80/295732/ffffff?text=Postre1",
-        quantity: 1
-      },
-      {
-        id: 2,
-        name: "Tostada de Aguacate y Huevo",
-        price: "30.00",
-        image: "https://via.placeholder.com/80/6F4E37/ffffff?text=Postre2",
-        quantity: 2
-      },
-       {
-        id: 3,
-        name: "Ensalada Refrescante de Uvas",
-        price: "25.00",
-        image: "https://via.placeholder.com/80/295732/ffffff?text=Postre1",
-        quantity: 10
-      }
-    ];
-    
+    let cartItems = [];
     let currentCheckoutFullStep = 1;
     let selectedPaymentMethod = null;
     let reenviarAttempts = 0;
     const MAX_REENVIAR_ATTEMPTS = 3;
     let reenviarBtnDisabled = false;
     let reenviarTimeout = null;
+    
+    // Variable para almacenar la página de origen
+    let returnToPage = 'productos.html'; // Valor por defecto
 
     // Datos de los edificios y salones
     const buildingClassrooms = {
@@ -1317,7 +1385,6 @@ font-size: 18px;
 
     // Elementos del DOM
     const checkoutFullscreen = document.getElementById('checkoutFullscreen');
-    const closeCheckoutFull = document.getElementById('closeCheckoutFull');
     const checkoutProductsList = document.getElementById('checkoutProductsList');
     const checkoutProductCount = document.getElementById('checkoutProductCount');
     const checkoutSubtotal = document.getElementById('checkoutSubtotal');
@@ -1360,15 +1427,27 @@ font-size: 18px;
     const confettiSuccess = document.getElementById('confettiSuccess');
     const reenviarCorreoBtnFull = document.getElementById('reenviarCorreoBtnFull');
     
+    // Pantalla de transición
+    const transitionScreen = document.getElementById('transitionScreen');
+    
     // Notificaciones
     const paymentErrorNotification = document.getElementById('paymentErrorNotification');
     const stockNotification = document.getElementById('stockNotification');
     const notification = document.getElementById('notification');
-    
-    // Botón demo
-    const openCheckoutBtn = document.getElementById('openCheckoutBtn');
 
     // ===== FUNCIONES DEL CARRITO =====
+    
+    function loadCartFromStorage() {
+      const savedCart = localStorage.getItem('checkout_cart_items');
+      if (savedCart) {
+        try {
+          cartItems = JSON.parse(savedCart);
+        } catch (e) {
+          console.error('Error al cargar el carrito:', e);
+          cartItems = [];
+        }
+      }
+    }
     
     function calculateCartTotals() {
       let subtotal = 0;
@@ -1430,7 +1509,8 @@ font-size: 18px;
     
     function showCheckoutFullscreen() {
       if (cartItems.length === 0) {
-        alert('Tu carrito está vacío. Agrega productos antes de comprar.');
+        // Redirigir a la página de origen o productos.html por defecto
+        window.location.href = returnToPage;
         return;
       }
       
@@ -1441,17 +1521,30 @@ font-size: 18px;
       renderCheckoutProducts();
       updateCartTotals();
       resetReenviarBtn();
+      
+      // Deshabilitar el botón de pago inicialmente
+      updatePaymentButtonState();
     }
     
     function closeCheckoutFullscreen() {
       if (currentCheckoutFullStep === 3) {
         // Si está en confirmación, limpiar carrito
+        localStorage.removeItem('checkout_cart_items');
         cartItems = [];
       }
       
       checkoutFullscreen.classList.remove('active');
       document.body.style.overflow = 'auto';
       resetCheckoutFullForms();
+    }
+    
+    function showTransitionScreenAndRedirect() {
+      transitionScreen.classList.add('active');
+      
+      // Mostrar por 1.5 segundos y luego redirigir a la página de origen
+      setTimeout(() => {
+        window.location.href = returnToPage;
+      }, 1500);
     }
     
     function showCheckoutFullStep(step) {
@@ -1481,6 +1574,9 @@ font-size: 18px;
           stepContent2.classList.add('active');
           step1.classList.add('completed');
           step2.classList.add('active');
+          
+          // Deshabilitar el botón de pago cuando se muestra el paso 2
+          updatePaymentButtonState();
         } else if (step === 3) {
           stepContent3.classList.add('active');
           step1.classList.add('completed');
@@ -1507,6 +1603,7 @@ font-size: 18px;
       fullCvv.value = '';
       
       currentCheckoutFullStep = 1;
+      updatePaymentButtonState();
     }
     
     function updateFullClassroomOptions() {
@@ -1608,6 +1705,14 @@ font-size: 18px;
       }
       
       return true;
+    }
+    
+    // Función para actualizar el estado del botón de pago
+    function updatePaymentButtonState() {
+      if (currentCheckoutFullStep === 2) {
+        // Habilitar el botón solo si hay un método de pago seleccionado
+        processPaymentBtn.disabled = !selectedPaymentMethod;
+      }
     }
     
     function generateConfirmationInfo() {
@@ -1730,22 +1835,39 @@ font-size: 18px;
       }
     }
 
+    // ===== FUNCIÓN PARA OBTENER LA PÁGINA DE ORIGEN =====
+    function getReturnPageFromURL() {
+      // Obtener la URL de referencia desde localStorage o parámetro URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const referrer = urlParams.get('from');
+      
+      // Posibles páginas válidas
+      const validPages = ['index.html', 'productos.html', 'contacto.html', 'nosotros.html','producto.html','sobrenosotros.html'];
+      
+      if (referrer && validPages.includes(referrer)) {
+        return referrer;
+      }
+      
+      // Si no hay parámetro, intentar obtener de localStorage
+      const storedReferrer = localStorage.getItem('checkout_referrer');
+      if (storedReferrer && validPages.includes(storedReferrer)) {
+        return storedReferrer;
+      }
+      
+      // Valor por defecto
+      return 'productos.html';
+    }
+
     // ===== EVENT LISTENERS =====
     
-    // Botón para abrir checkout (demo)
-    openCheckoutBtn.addEventListener('click', showCheckoutFullscreen);
-    
-    // Cerrar checkout
-    closeCheckoutFull.addEventListener('click', closeCheckoutFullscreen);
+    // Volver al carrito - ahora muestra transición y redirige a la página de origen
+    backToCartBtnFull.addEventListener('click', () => {
+      closeCheckoutFullscreen();
+      showTransitionScreenAndRedirect();
+    });
     
     // Actualizar salones cuando se selecciona un edificio
     fullBuilding.addEventListener('change', updateFullClassroomOptions);
-    
-    // Volver al carrito (simulado)
-    backToCartBtnFull.addEventListener('click', () => {
-      closeCheckoutFullscreen();
-      showNotification('Volviendo al carrito...');
-    });
     
     // Continuar al pago
     continueToPaymentFullBtn.addEventListener('click', () => {
@@ -1766,6 +1888,10 @@ font-size: 18px;
         }
         
         selectedPaymentMethod = option.dataset.method;
+        
+        // Habilitar/deshabilitar botón de pago según selección
+        updatePaymentButtonState();
+        
         if (selectedPaymentMethod === 'card') {
           fullCardFields.classList.add('show');
           setTimeout(() => {
@@ -1832,10 +1958,10 @@ font-size: 18px;
       showCheckoutFullStep(3);
     });
     
-    // Finalizar checkout
+    // Finalizar checkout - muestra transición y redirige a la página de origen
     finishCheckoutBtn.addEventListener('click', () => {
       closeCheckoutFullscreen();
-      showNotification('¡Gracias por tu compra!');
+      showTransitionScreenAndRedirect();
     });
     
     // Reenviar correo
@@ -1846,6 +1972,21 @@ font-size: 18px;
     // ===== INICIALIZACIÓN =====
     
     function init() {
+      // Obtener la página de origen desde la URL o localStorage
+      returnToPage = getReturnPageFromURL();
+      
+      // Cargar carrito desde localStorage
+      loadCartFromStorage();
+      
+      // Mostrar el checkout automáticamente
+      showCheckoutFullscreen();
+      
+      // Si no hay productos, redirigir a la página de origen
+      if (cartItems.length === 0) {
+        window.location.href = returnToPage;
+        return;
+      }
+      
       renderCheckoutProducts();
       updateCartTotals();
       
@@ -1853,6 +1994,14 @@ font-size: 18px;
       const now = new Date();
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
       confirmationDate.textContent = now.toLocaleDateString('es-ES', options);
+      
+      // Forzar color negro en los selects después de cargar
+      setTimeout(() => {
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+          select.style.color = '#000';
+        });
+      }, 100);
     }
     
     // Inicializar cuando el DOM esté listo

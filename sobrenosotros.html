@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title id="pageTitle">Nutricroc</title>
+  <title id="pageTitle">Nutricroc - Nuestra Historia</title>
   <link rel="icon" href="img/cocodrilo1.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -30,7 +30,7 @@
       background: #f1f1f1;
     }
 
-    ::-webkit-scrollbar-thumb {
+    ::webkit-scrollbar-thumb {
       background: #295732;
       border-radius: 5px;
     }
@@ -1234,546 +1234,506 @@
       cursor: not-allowed;
     }
 
-    /* ===== CONTENIDO DE PRODUCTO ===== */
-    .product-container {
+    /* ===== SECCIÓN "OUR STORY" ===== */
+    .story-section {
+      background-color: #D5E8D5; /* Verde claro que combina con el header */
+      padding: 100px 20px;
+      width: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 30px;
-      gap: 50px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .product-main {
-      display: flex;
-      flex-direction: column;
-      flex: 2;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .product-content {
-      display: flex;
-      gap: 50px;
-      margin-bottom: 40px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .product-images-left {
-      max-width: 400px;
-      flex: 1;
-      width: 100%;
-    }
-
-    .main-image {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .main-image img {
-      width: 100%;
-      border-radius: 15px;
-      max-width: 100%;
-      height: 400px; /* Altura fija para todas las imágenes */
-      object-fit: cover; /* Asegura que la imagen se recorte adecuadamente */
-    }
-
-    .thumbnails {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .thumbnails img {
-      width: 80px;
-      height: 80px;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: 0.3s;
-      object-fit: cover;
-    }
-
-    .thumbnails img:hover {
-      border: 2px solid #295732;
-    }
-
-    .product-info-right {
-      max-width: 500px;
-      flex: 1;
-      width: 100%;
-    }
-
-    .product-info-right h2 {
-      font-size: 35px;
-      margin: 0 0 10px;
-      color: #4a2c2a;
-      font-family: 'Playfair Display', serif;
-      font-weight: normal;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .price {
-      font-size: 22px;
-      font-weight: bold;
-      color: black;
-      margin: 10px 0;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .description {
-      font-size: 16px;
-      color: #444;
-      line-height: 1.6;
-      font-family: 'Playfair Display', serif;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .add-to-cart {
-      display: flex;
       align-items: center;
-      margin: 20px 0;
-      gap: 10px;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .quantity-input {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      overflow: hidden;
-      background: #fff;
-      height: 45px;
-      min-width: 120px;
-    }
-
-    .quantity-input input {
-      width: 100%;
-      text-align: center;
-      padding: 0;
-      border: none;
-      font-size: 16px;
-      font-family: 'Playfair Display', serif;
-      background: transparent;
-      height: 100%;
-    }
-
-    .add-to-cart button {
-      background: #295732;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 25px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-family: 'Playfair Display', serif;
-      height: 45px;
-      font-weight: bold;
-      min-width: 180px;
-    }
-
-    .add-to-cart button:hover {
-      background: #1e3d24;
-    }
-
-    .category {
-      font-size: 14px;
-      margin-top: 10px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .category a {
-      color: #295732;
-      text-decoration: none;
-    }
-
-    .related-products-section {
-      margin-top: 40px;
-      border-top: 1px solid #eee;
-      padding-top: 30px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .related-title {
-      font-size: 40px;
-      margin-bottom: 20px;
-      color: #333;
-      font-family: 'Playfair Display', serif; 
-      font-weight: normal;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .related-products {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      width: 100%;
-    }
-
-    .related-product {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      position: relative;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .related-product:hover {
-      transform: translateY(-5px);
-    }
-
-    .product-image-container {
+      min-height: calc(100vh - 90px); /* Altura completa menos el header */
       position: relative;
       overflow: hidden;
-      border-radius: 20px;
-      width: 100%;
     }
 
-    .related-product img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 20px;
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .related-product:hover img {
-      transform: scale(1.05);
-      filter: brightness(0.9);
-    }
-
-    .related-product h4 {
-      font-weight: bold;
-      margin: 10px 0;
-      font-size: 20px;
-      color: #4a2c2a;
-      font-family: 'Playfair Display', serif;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .related-product .price {
-      color: #444;
-      font-size: 16px;
-      font-family: 'Playfair Display', serif;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .old-price {
-      text-decoration: line-through;
-      color: #aaa;
-      margin-right: 5px;
-    }
-
-    .sale-badge {
-      position: absolute;
-      background: #295732;
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 50%;
-      font-size: 14px;
-      font-weight: bold;
-      top: 10px;
-      left: 10px;
-      z-index: 2;
-    }
-
-    .add-to-cart-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #295732;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 25px;
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-      z-index: 2;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      white-space: nowrap;
-    }
-
-    .related-product:hover .add-to-cart-btn {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.05);
-    }
-
-    .add-to-cart-btn:hover {
-      background-color: #1e3d24;
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    .sidebar {
-      display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
-  position: sticky;
-  top: 120px; /* VOLVER AL VALOR ORIGINAL: 120px en lugar de 140px */
-  overflow: hidden;
-    }
-
-    .search-box {
-     display: flex;
-  align-items: center;
-  border: 2px solid #000;
-  border-radius: 25px;
-  padding: 5px 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  overflow: hidden;
-  background: #F5F5DC;
-  /* ELIMINAR: margin-top: -20px; */
-    }
-
-    .search-box input {
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 5px;
-      font-size: 15px;
-      font-family: 'Playfair Display', serif;
-      flex: 1;
-      width: 100%;
-    }
-
-    .search-box button {
-      background: #295732;
-      border: none;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .tags-widget {
-       border: 2px solid #000;
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  /* ELIMINAR: margin-top: -10px; */
-    }
-
-    .tags-widget h3 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 30px;
-      margin-bottom: 15px;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .tags-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 5px 15px;
-      border: 1px solid #000;
-      border-radius: 20px;
-      font-size: 14px;
-      color: #333;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-family: 'Playfair Display', serif;
-      flex-shrink: 0;
-      max-width: 100%;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .tag:hover {
-      background-color: #295732;
-      color: white;
-      border-color: #295732;
-    }
-
-    .tags-widget::before, .tags-widget::after {
-      content: "";
-      display: block;
-      height: 1px;
-      background: #000;
-      margin: 10px auto;
-      width: 70%;
-      position: relative;
-    }
-
-    /* ===== FOOTER ===== */
-    .footer-section {
-      background: url('img/nutriblanco.jpeg') center/700px 450px no-repeat;
-      padding: 60px 0 30px;
-      border-top: 1px solid #eee;
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .footer-section::before {
+    /* Efectos de curvas para las divisiones de secciones */
+    .story-section::before {
       content: '';
       position: absolute;
-      top: 0;
+      top: -50px;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background:rgba(245, 245, 220, 0.85);
+      width: 100%;
+      height: 100px;
+      background: #F5F5DC;
+      border-radius: 0 0 50% 50%;
       z-index: 1;
     }
 
-    .footer-container {
+    .story-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #D5E8D5;
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .story-container {
       max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .story-content {
       position: relative;
       z-index: 2;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .footer-left {
-      flex: 1;
-      max-width: 400px;
-      width: 100%;
-    }
-
-    .footer-right {
-      flex: 1;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    .footer-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: 36px;
-      color: #295732;
-      margin-bottom: 20px;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .footer-subtitle {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: #333;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-
-    .social-icons {
       display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
     }
 
-    .social-icon {
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #295732;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .story-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background-color: #295732;
+    }
+
+    .story-layout {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: #295732;
-      border-radius: 50%;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .social-icon:hover {
-      background-color: #1e3d24;
-      transform: translateY(-3px);
-    }
-
-    .newsletter-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      gap: 60px;
       width: 100%;
     }
 
-    .newsletter-input {
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      border-radius: 25px;
-      font-size: 16px;
+    /* Imágenes estilo última sección */
+    .story-image {
+      flex: 1;
+      max-width: 700px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    
+    }
+
+    .story-image:hover {
+      transform: translateY(-10px) scale(1.02);
+      
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 620px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .story-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .story-text {
+      flex: 1;
+      max-width: 500px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .story-text h3 {
       font-family: 'Playfair Display', serif;
-      outline: none;
-      transition: border-color 0.3s ease;
-      background: rgba(255, 255, 255, 0.9);
-      width: 100%;
+      font-size: 32px;
+      color: #295732;
+      margin-bottom: 25px;
+      font-weight: 500;
     }
 
-    .newsletter-input:focus {
-      border-color: #295732;
-      background: white;
+    .story-text p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 25px;
+      text-align: justify;
     }
 
-    .newsletter-btn {
-      padding: 12px 25px;
+    .story-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .story-btn {
       background-color: #295732;
       color: white;
       border: none;
-      border-radius: 25px;
-      font-size: 16px;
+      padding: 15px 40px;
+      border-radius: 30px;
       font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      align-self: flex-start;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      min-width: 180px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .newsletter-btn:hover {
+    .story-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+
+    .story-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .story-btn:hover {
+      background-color: #1e3d24;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .story-btn.secondary {
+      background-color: transparent;
+      color: #295732;
+      border: 2px solid #295732;
+    }
+
+    .story-btn.secondary:hover {
+      background-color: #295732;
+      color: white;
+    }
+
+    /* ===== NUEVA SECCIÓN "OUR STANDARDS" ===== */
+    .standards-section {
+      background-color: #E8F5E8; /* Verde muy claro */
+      padding: 120px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Curva superior */
+    .standards-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #D5E8D5;
+      border-radius: 0 0 50% 50%;
+      z-index: 1;
+    }
+
+    /* Curva inferior */
+    .standards-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #E8F5E8;
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .standards-container {
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .standards-content {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .standards-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #295732;
+      text-align: left;
+      margin-bottom: 10px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .standards-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100px;
+      height: 3px;
+      background-color: #295732;
+    }
+
+    .standards-text {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .standard-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .standard-icon {
+      color: #295732;
+      font-size: 24px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .standard-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .standards-image-container {
+      flex: 1;
+      position: relative;
+      height: 600px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .standards-background-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(90deg, rgba(232, 245, 232, 0.8) 0%, rgba(232, 245, 232, 0.4) 30%, rgba(232, 245, 232, 0) 70%),
+        url('img/standards-bg.jpg') center/cover no-repeat;
+      filter: brightness(0.9) contrast(0.9);
+      z-index: 1;
+    }
+
+    .standards-overlay-image {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      width: 78%;
+      height: 87%;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+      z-index: 2;
+      border: 8px solid white;
+    }
+
+    .standards-overlay-image img {
+      width: 100%;
+      height: 120%;
+      transform: translateY(8%);
+      object-fit: cover;
+    }
+
+    /* ===== NUEVA SECCIÓN "OUR MISSION" MODIFICADA ===== */
+    .mission-section {
+      background-color: #9BC1A2; /* Verde diferente pero que combina */
+      padding: 120px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Curva superior */
+    .mission-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #E8F5E8;
+      border-radius: 0 0 50% 50%;
+      z-index: 1;
+    }
+
+    /* Curva inferior */
+    .mission-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #9BC1A2;
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .mission-container {
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .mission-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .mission-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #1e3d24; /* Verde más oscuro para contraste */
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .mission-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
       background-color: #1e3d24;
     }
 
-    .footer-bottom {
-      max-width: 1300px;
-      margin: 40px auto 0;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-      position: relative;
-      z-index: 2;
+    /* ESTILOS PARA LAS IMÁGENES Y TEXTO ESCALONADOS */
+    .mission-staggered {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    .mission-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
       width: 100%;
     }
 
+    .mission-item.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .mission-image {
+      flex: 0 0 400px;
+      max-width: 400px;
+      height: 500px;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .mission-image:hover {
+      transform: translateY(-10px);
+    }
+
+    .mission-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .mission-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .mission-text-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .mission-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: #1e3d24;
+      margin-bottom: 25px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .mission-item-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: #295732;
+    }
+
+    .mission-item-text {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #2d4a32;
+      text-align: justify;
+    }
+
+    .mission-item:nth-child(even) .mission-item-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    /* ===== SCROLL TO TOP ===== */
     .scroll-to-top {
       position: fixed;
       bottom: 30px;
@@ -1794,7 +1754,7 @@
 
     .scroll-to-top:hover {
       background-color: #1e3d24;
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.1);
     }
 
     .scroll-to-top i {
@@ -1803,53 +1763,51 @@
     }
 
     /* ===== MEDIA QUERIES MEJORADAS ===== */
-    @media (max-width: 1200px) {
-      .product-container {
-        max-width: 100%;
-        padding: 30px 20px;
-      }
-      
-      .sidebar {
-        width: 280px;
-      }
-      
-      .auth-sidebar,
-      .cart-sidebar {
-        width: 50%;
-      }
-    }
-
     @media (max-width: 1024px) {
-      .product-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        gap: 30px;
+      .standard-icon {
+      color: #295732;
+      font-size: 24px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+      .story-layout {
+        gap: 40px;
       }
       
-      .sidebar {
-        width: 100%;
-        max-width: 600px;
-        position: static;
+      .story-image {
+        max-width: 400px;
       }
       
-      .widget, .tags-widget {
-        padding: 15px;
-        margin-bottom: 15px;
+      .story-image img {
+        height: 450px;
       }
       
-      .widget h3, .tags-widget h3 {
-        font-size: 26px;
+      .mission-item {
+        gap: 40px;
+      }
+      
+      .mission-image {
+        flex: 0 0 350px;
+        max-width: 350px;
+        height: 280px;
+      }
+      
+      .standards-container {
+        gap: 40px;
+      }
+      
+      .standards-image-container {
+        height: 500px;
       }
     }
 
     @media (max-width: 768px) {
-      .discover-btn,
-      .clear-filters-btn {
-        width: 100%;
-        max-width: 250px;
-        text-align: center;
-      }
+      .standard-icon {
+      color: #295732;
+      font-size: 24px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
       .cart-item-actions {
       display: flex;
       gap: 40px; /* Aumentado de 10px a 15px para separar más los iconos */
@@ -1897,98 +1855,119 @@
         margin-right: 10px;
       }
       
-      .product-container {
-        padding: 15px;
+      .story-section,
+      .mission-section,
+      .standards-section {
+        padding: 80px 15px;
+      }
+      
+      .story-title,
+      .mission-title,
+      .standards-title {
+        font-size: 36px;
+      }
+      
+      .story-layout {
+        flex-direction: column;
+        gap: 40px;
+      }
+      
+      .story-image {
+        max-width: 100%;
+      }
+      
+      .story-image img {
+        height: 400px;
+      }
+      
+      .story-text {
+        max-width: 100%;
+        padding: 0;
+      }
+      
+      .story-text h3 {
+        font-size: 28px;
+      }
+      
+      .story-text p {
+        font-size: 16px;
+      }
+      
+      .story-buttons,
+      .mission-tags {
+        flex-direction: column;
+        align-items: center;
         gap: 20px;
       }
       
-      .product-content {
-        flex-direction: column;
+      .story-btn,
+      .mission-tag {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      /* AJUSTES PARA MISION EN MÓVILES */
+      .mission-item {
+        flex-direction: column !important;
         gap: 30px;
       }
       
-      .product-images-left, 
-      .product-info-right {
+      .mission-image {
+        flex: 0 0 auto;
         max-width: 100%;
+        width: 100%;
+        height: 250px;
       }
       
-      .related-products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-      
-      .related-title {
-        font-size: 32px;
-        margin-bottom: 15px;
-      }
-      
-      .related-product h4 {
-        font-size: 18px;
-      }
-      
-      .related-product img {
-        height: 180px;
-      }
-      
-      .sidebar {
-        max-width: 100%;
-      }
-      
-      .tags-widget {
-        padding: 12px;
-        margin-bottom: 12px;
-      }
-      
-      .tags-widget h3 {
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
-      
-      .tags-container {
-        gap: 8px;
-      }
-      
-      .tag {
-        padding: 4px 12px;
-        font-size: 13px;
-      }
-      
-      .search-box {
-        padding: 5px 8px;
-        margin-bottom: 15px;
-      }
-      
-      .search-box input {
-        font-size: 14px;
-      }
-      
-      .search-box button {
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
-      }
-      
-      .footer-container {
-        flex-direction: column;
-        gap: 30px;
-      }
-      
-      .footer-left, .footer-right {
-        max-width: 100%;
+      .mission-item-title {
+        font-size: 28px;
         text-align: center;
       }
       
-      .social-icons {
-        justify-content: center;
+      .mission-item-title::after {
+        left: 50%;
+        transform: translateX(-50%);
       }
       
-      .newsletter-form {
-        max-width: 300px;
-        margin: 0 auto;
+      .mission-item-text {
+        font-size: 16px;
+        text-align: center;
       }
       
-      .newsletter-btn {
-        align-self: center;
+      .mission-item:nth-child(even) .mission-item-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      /* Ajustes para standards section en móviles */
+      .standards-container {
+        flex-direction: column;
+        gap: 50px;
+      }
+      
+      .standards-content {
+        order: 2;
+      }
+      
+      .standards-image-container {
+        order: 1;
+        width: 100%;
+        height: 400px;
+      }
+      
+      .standards-overlay-image {
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: 80%;
+      }
+      
+      .standards-title {
+        text-align: center;
+      }
+      
+      .standards-title::after {
+        left: 50%;
+        transform: translateX(-50%);
       }
       
       .scroll-to-top {
@@ -2076,6 +2055,12 @@
     }
 
     @media (max-width: 480px) {
+      .standard-icon {
+      color: #295732;
+      font-size: 24px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
       .cart-empty-image {
     width: 300px;
     height: 250px;
@@ -2084,109 +2069,45 @@
       display: flex;
       gap: 40px; /* Aumentado de 10px a 15px para separar más los iconos */
     }
-      .add-to-cart {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
-        width: 100%;
-        margin: 20px 0;
+      .story-section,
+      .mission-section,
+      .standards-section {
+        padding: 60px 10px;
       }
       
-      .quantity-input {
-        flex-shrink: 0;
-        min-width: 100px;
-        height: 40px;
+      .story-title,
+      .mission-title,
+      .standards-title {
+        font-size: 30px;
       }
       
-      .add-to-cart button {
-        flex: 1;
-        min-width: auto;
-        height: 40px;
-        padding: 10px 15px;
-        font-size: 14px;
-        white-space: nowrap;
+      .story-image img {
+        height: 600px;
       }
       
-      
-      .related-products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+      .story-text h3,
+      .mission-item-title {
+        font-size: 24px;
       }
       
-      .related-product h4 {
+      .story-text p,
+      .mission-item-text,
+      .standard-text {
+        font-size: 15px;
+      }
+      
+      .story-btn {
+        padding: 12px 25px;
         font-size: 16px;
-        margin: 8px 0;
+        min-width: 150px;
       }
       
-      .related-product .price {
-        font-size: 14px;
-      }
-      
-      .related-product img {
-        height: 150px;
-      }
-      
-      .sale-badge {
-        padding: 4px 8px;
-        font-size: 12px;
-      }
-      
-      .add-to-cart-btn {
-        padding: 10px 16px;
-        font-size: 14px;
-      }
-      
-      .tags-widget {
-        padding: 10px;
-        border-width: 1px;
-      }
-      
-      .tags-widget h3 {
-        font-size: 22px;
-      }
-      
-      .tags-container {
-        gap: 6px;
-      }
-      
-      .tag {
-        padding: 3px 10px;
-        font-size: 12px;
-        border-radius: 15px;
+      .mission-image {
+        height: 500px;
       }
       
       .header-logo {
         font-size: 32px;
-      }
-      
-     
-        .footer-title {
-    font-family: 'Classy Marisa';
-    font-size: 28px;
-  }
-        
-      
-      .footer-subtitle {
-        font-size: 20px;
-      }
-      
-      .product-info-right h2 {
-        font-size: 28px;
-      }
-      
-      .price {
-        font-size: 20px;
-      }
-      
-      .description {
-        font-size: 15px;
-      }
-      
-      .add-to-cart button {
-        padding: 10px 20px;
-        font-size: 14px;
       }
       
       .header-top {
@@ -2199,6 +2120,15 @@
       
       .mobile-nav-title {
         font-size: 32px;
+      }
+      
+      /* Ajustes para standards section en móviles pequeños */
+      .standards-image-container {
+        height: 300px;
+      }
+      
+      .standards-overlay-image {
+        width: 90%;
       }
       
       /* MODIFICACIÓN: Ajuste adicional para móviles pequeños */
@@ -2217,47 +2147,13 @@
       }
     }
 
-
-    @media (max-width: 360px) {
-      .cart-item-actions {
-      display: flex;
-      gap: 40px; /* Aumentado de 10px a 15px para separar más los iconos */
-    }
-       .add-to-cart {
-        gap: 8px;
-      }
-      
-      .quantity-input {
-        min-width: 90px;
-      }
-      
-      .add-to-cart button {
-        padding: 10px 12px;
-        font-size: 13px;
-      }
-      
-      .related-products {
-        grid-template-columns: 1fr;
-      }
-      
-      .related-product img {
-        height: 200px;
-      }
-      
-      .tags-widget {
-        padding: 8px;
-      }
-      
-      .tags-widget h3 {
-        font-size: 20px;
-      }
-      
-      .product-container {
-        padding: 10px;
-      }
-    }
-
     @media (min-width: 769px) {
+      .standard-icon {
+      color: #295732;
+      font-size: 24px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
       .mobile-menu-btn {
         display: none;
       }
@@ -2306,7 +2202,7 @@
           <a href="productos.html">Productos</a>
         </div>
         <div class="nav-item">
-          <a href="sobrenosotros.html">Sobre Nosotros</a>
+          <a href="#">Sobre Nosotros</a>
         </div>
       </nav>
 
@@ -2476,7 +2372,7 @@
     </div>
     
     <div class="mobile-nav-item">
-      <a href="sobrenosotros.html">Sobre Nosotros</a>
+      <a href="mantenimiento.html">Sobre Nosotros</a>
     </div>
     
     <div class="mobile-nav-item">
@@ -2488,127 +2384,128 @@
     </div>
   </nav>
 
-  <!-- Contenido principal del producto -->
-  <div class="product-container">
-    <div class="product-main">
-      <div class="product-content">
-        <div class="product-images-left">
-          <div class="main-image">
-            <img id="currentImage" src="img/Carte1.jpeg" alt="Product">
-          </div>
-          <div class="thumbnails">
-            <img src="img/Carte1.jpeg" alt="thumb1" onclick="changeImage(this)">
-            <img src="img/Carte1.jpeg" alt="thumb2" onclick="changeImage(this)">
-            <img src="img/Carte1.jpeg" alt="thumb3" onclick="changeImage(this)">
-            <img src="img/Carte1.jpeg" alt="thumb4" onclick="changeImage(this)">
-          </div>
-        </div>
-        <div class="product-info-right">
-          <h2 id="productName">Ensalada Refrescante de Uvas, Feta/Mozzarella y Nueces</h2>
-          <p class="price" id="productPrice">$25.00</p>
-          <p class="description" id="productDescription">
-            Una ensalada refrescante con uvas dulces, queso feta o mozzarella y nueces tostadas. Perfecta para una comida ligera y nutritiva.
-          </p>
-          <div class="add-to-cart">
-            <div class="quantity-input">
-              <input type="number" id="productQuantity" value="1" min="1">
-            </div>
-            <button id="addToCartBtn">Agregar al carrito</button>
-          </div>
-          <div class="category">
-            <span>Etiquetas: </span>
-            <a href="#" id="productCategory">Ensalada</a>
-          </div>
-        </div>
-      </div>
-      <div class="related-products-section">
-        <h3 class="related-title">Productos Relacionados</h3>
-        <div class="related-products">
-          <div class="related-product" onclick="viewRelatedProduct(1)">
-            <span class="sale-badge">Oferta!</span>
-            <div class="product-image-container">
-              <img src="img/Espe3.jpeg" alt="Tostada de Salmón">
-              <button class="add-to-cart-btn" onclick="addRelatedToCart(event, 1)">+Carrito</button>
-            </div>
-            <h4>Tostada de Salmón, Aguacate y Huevo con Semillas</h4>
-            <div class="price">$84.00</div>
+  <!-- SECCIÓN "OUR STORY" -->
+  <section class="story-section">
+    <div class="story-container">
+      <div class="story-content">
+        <h2 class="story-title">Nuestra historia</h2>
+        
+        <div class="story-layout">
+          <!-- Imagen izquierda -->
+          <div class="story-image">
+            <img src="img/Cocodrilochef.png" alt="Nuestra historia - Imagen 1">
           </div>
           
-          <div class="related-product" onclick="viewRelatedProduct(2)">
-            <div class="product-image-container">
-              <img src="img/Carte7.jpeg" alt="Tostada de Aguacate">
-              <button class="add-to-cart-btn" onclick="addRelatedToCart(event, 2)">+Carrito</button>
-            </div>
-            <h4>Tostada de Aguacate y Queso Halloumi a la Parrilla</h4>
-            <div class="price">$15.00</div>
+          <!-- Texto en el medio -->
+          <div class="story-text">
+            <h3>Nuestra Historia</h3>
+            <p>Nutricroc nace de la iniciativa y el compromiso de un grupo de estudiantes universitarios que buscaban una alternativa práctica y saludable dentro de su institución. Detectamos una necesidad clara: disfrutar de postres y snacks nutritivos sin tener que salir del salón ni interrumpir las clases.</p>
+            <p>Impulsados por nuestra pasión por la nutrición saludable, creamos un espacio donde el bienestar y el buen sabor van de la mano. En Nutricroc creemos que comer bien no debe ser complicado ni aburrido, sino una experiencia deliciosa, accesible y pensada para el ritmo de la vida universitaria.</p>
+            <p>Nuestro objetivo es ofrecer opciones nutritivas, elaboradas con ingredientes de calidad, que aporten energía y satisfacción en cualquier momento del día, directamente hasta donde te encuentres.</p>
           </div>
           
-          <div class="related-product" onclick="viewRelatedProduct(3)">
-            <div class="product-image-container">
-              <img src="img/postreE1.jpeg" alt="Torre de Yogur">
-              <button class="add-to-cart-btn" onclick="addRelatedToCart(event, 3)">+Carrito</button>
-            </div>
-            <h4>Torre de Yogur, Avena y Bayas</h4>
-            <div class="price">$95.00</div>
+          <!-- Imagen derecha -->
+          <div class="story-image">
+            <img src="img/Crocodrilouniversitario.png" alt="Nuestra historia - Imagen 2">
           </div>
         </div>
+      
       </div>
     </div>
-    <div class="sidebar">
-      <div class="search-box">
-        <input type="text" placeholder="Buscar productos...">
-        <button><span class="material-icons">search</span></button>
-      </div>
+  </section>
 
-      <div class="tags-widget">
-        <h3>Etiquetas</h3>
-        <div class="tags-container">
-          <a href="#" class="tag">Ensaladas</a>
-          <a href="#" class="tag">Tostadas</a>
-          <a href="#" class="tag">Yogures</a>
-          <a href="#" class="tag">Postres</a>
-          <a href="#" class="tag">Frutas</a>
-          <a href="#" class="tag">Saludable</a>
-          <a href="#" class="tag">Vegetariana</a>
-          <a href="#" class="tag">Proteína</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer-section">
-    <div class="footer-container">
-      <div class="footer-left">
-        <h2 class="footer-title">Nutricroc</h2>
-        <h3 class="footer-subtitle">Síguenos</h3>
-        <div class="social-icons">
-          <a href="#" class="social-icon">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-pinterest"></i>
-          </a>
+  <!-- NUEVA SECCIÓN "OUR STANDARDS" -->
+  <section class="standards-section">
+    <div class="standards-container">
+      <div class="standards-content">
+        <h2 class="standards-title">Nuestros estándares</h2>
+        
+        <div class="standards-text">
+          <div class="standard-item">
+            <div class="standard-icon">🥗</div>
+            <p class="standard-text">Seleccionamos cuidadosamente cada ingrediente para garantizar productos frescos, nutritivos y de alta calidad, priorizando opciones naturales y saludables.</p>
+          </div>
+          
+          <div class="standard-item">
+            <div class="standard-icon">🥗</div>
+            <p class="standard-text">Nuestros postres y snacks están pensados para aportar energía y bienestar, manteniendo un equilibrio entre sabor, valor nutricional y porciones adecuadas.</p>
+          </div>
+          
+          <div class="standard-item">
+            <div class="standard-icon">🥗</div>
+            <p class="standard-text">Creemos que comer saludable también puede ser delicioso. Diseñamos recetas que combinan buen sabor con alternativas nutritivas.</p>
+          </div>
+          
+          <div class="standard-item">
+            <div class="standard-icon">🥗</div>
+            <p class="standard-text">Evaluamos y mejoramos constantemente nuestros procesos, recetas y presentaciones para ofrecer productos que evolucionen junto a las necesidades de la comunidad universitaria, manteniendo siempre nuestra calidad y compromiso.</p>
+          </div>
+          
+          <div class="standard-item">
+            <div class="standard-icon">🥗</div>
+            <p class="standard-text">Seguimos prácticas responsables de higiene y manipulación de alimentos para asegurar productos seguros y confiables para nuestros clientes.</p>
+          </div>
         </div>
       </div>
       
-      <div class="footer-right">
-        <h3 class="footer-subtitle">Recibe Nuestras Noticias Dulces</h3>
-        <form class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="Tu Dirección de Email" required>
-          <button type="submit" class="newsletter-btn">Suscribirse</button>
-        </form>
+      <div class="standards-image-container">
+        <div class="standards-background-image"></div>
+        <div class="standards-overlay-image">
+          <img src="img/estandares.png" alt="Nuestros estándares">
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
+  </section>
+
+  <!-- NUEVA SECCIÓN "OUR MISSION" MODIFICADA -->
+  <section class="mission-section">
+    <div class="mission-container">
+      <div class="mission-content">
+        <h2 class="mission-title">Nuestra Misión</h2>
+        
+        <div class="mission-staggered">
+          <!-- Primer item: Imagen izquierda, texto derecha -->
+          <div class="mission-item">
+            <div class="mission-image">
+              <img src="img/calidad.png" alt="Misión 1">
+            </div>
+            <div class="mission-text-content">
+              <h3 class="mission-item-title">Calidad Inigualable</h3>
+              <p class="mission-item-text">En Nutricroc creemos que comer bien también puede ser delicioso. Cada uno de nuestros postres y snacks nutritivos es elaborado bajo altos estándares de calidad, cuidando cada detalle desde la selección de ingredientes hasta su preparación final.
+Trabajamos con insumos frescos y cuidadosamente seleccionados, priorizando el valor nutricional sin sacrificar el sabor. Nuestro compromiso es ofrecer opciones equilibradas, seguras y confiables, pensadas para acompañar el ritmo de vida universitario.
+Dentro de la institución universitaria, garantizamos procesos responsables, higiene constante y una mejora continua, porque sabemos que la calidad no es un extra, es una promesa. Nutricroc es sinónimo de confianza, bienestar y sabor en cada bocado.</p>
+            </div>
+          </div>
+          
+          <!-- Segundo item: Imagen derecha, texto izquierda -->
+          <div class="mission-item reverse">
+            <div class="mission-image">
+              <img src="img/innivacion.png" alt="Misión 2">
+            </div>
+            <div class="mission-text-content">
+              <h3 class="mission-item-title">Innovación Continua</h3>
+              <p class="mission-item-text">En Nutricroc la innovación es parte de nuestro día a día. Constantemente buscamos nuevas formas de crear postres y snacks nutritivos que se adapten a las necesidades, gustos y estilos de vida de la comunidad universitaria.
+Exploramos nuevas recetas, combinaciones de ingredientes y procesos más eficientes, siempre enfocados en mejorar la calidad, el valor nutricional y la experiencia de nuestros clientes. Aprendemos, probamos y evolucionamos, porque creemos que cada mejora, por pequeña que sea, marca la diferencia.
+Nuestra innovación no solo está en lo que ofrecemos, sino en cómo lo hacemos: con creatividad, responsabilidad y una visión de crecimiento constante. Nutricroc avanza contigo, innovando para cuidar tu bienestar.</p>
+            </div>
+          </div>
+          
+          <!-- Tercer item: Imagen izquierda, texto derecha -->
+          <div class="mission-item">
+            <div class="mission-image">
+              <img src="img/ambiental.png" alt="Misión 3">
+            </div>
+            <div class="mission-text-content">
+              <h3 class="mission-item-title">Compromiso Ambiental</h3>
+              <p class="mission-item-text">En Nutricroc entendemos que cuidar de las personas también implica cuidar del planeta. Por eso, nuestro compromiso ambiental está presente en cada decisión que tomamos, desde la selección de ingredientes hasta la forma en que presentamos nuestros productos.
+Buscamos reducir nuestro impacto ambiental mediante prácticas responsables, el uso consciente de recursos y la promoción de hábitos de consumo más sostenibles dentro de la comunidad universitaria. Creemos que pequeños cambios generan grandes resultados cuando se hacen con constancia y responsabilidad.
+Nuestro objetivo es ofrecer postres y snacks nutritivos que no solo aporten bienestar, sino que también respeten el entorno. En Nutricroc, crecer de manera responsable es parte de nuestra esencia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <button class="scroll-to-top" id="scrollToTop">
     <i class="fas fa-chevron-up"></i>
@@ -2673,15 +2570,6 @@
     const mobileNavOverlay = document.getElementById('mobileNavOverlay');
     const closeMobileNav = document.getElementById('closeMobileNav');
     
-    // Elementos del producto principal
-    const addToCartBtn = document.getElementById('addToCartBtn');
-    const productQuantity = document.getElementById('productQuantity');
-    const currentImage = document.getElementById('currentImage');
-    const productName = document.getElementById('productName');
-    const productPrice = document.getElementById('productPrice');
-    const productDescription = document.getElementById('productDescription');
-    const productCategory = document.getElementById('productCategory');
-
     let isLoginMode = true;
     let editingProductIndex = -1;
     let currentDeleteIndex = -1;
@@ -2689,37 +2577,6 @@
     // Clave única para almacenar el carrito en localStorage (MISMA CLAVE QUE CÓDIGO 1)
     const CART_STORAGE_KEY = 'nutricroc_shared_cart';
     const AUTH_STORAGE_KEY = 'nutricroc_auth_status';
-
-    // Datos de productos relacionados (los mismos que en tienda.html)
-    const relatedProductsData = [
-      {
-        id: 1,
-        name: "Tostada de Salmón, Aguacate y Huevo con Semillas",
-        price: 84.00,
-        oldPrice: null,
-        image: "img/Espe3.jpeg",
-        description: "Tostada integral con salmón ahumado, aguacate cremoso, huevo pochado y semillas de sésamo y chía.",
-        category: "Tostada"
-      },
-      {
-        id: 2,
-        name: "Tostada de Aguacate y Queso Halloumi a la Parrilla",
-        price: 15.00,
-        oldPrice: null,
-        image: "img/Carte7.jpeg",
-        description: "Tostada con aguacate fresco y queso halloumi a la parrilla, acompañada de germinados y aceite de oliva.",
-        category: "Tostada"
-      },
-      {
-        id: 3,
-        name: "Torre de Yogur, Avena y Bayas",
-        price: 95.00,
-        oldPrice: null,
-        image: "img/postreE1.jpeg",
-        description: "Capas de yogur griego, avena y bayas frescas. Un desayuno o merienda saludable y deliciosa.",
-        category: "Yogur"
-      }
-    ];
 
     // ===== FUNCIONES DE NOTIFICACIONES =====
     function showNotification(message = 'El producto se agregó de manera exitosa') {
@@ -2748,223 +2605,6 @@
       mobileNav.classList.remove('open');
       mobileNavOverlay.classList.remove('active');
       document.body.style.overflow = 'auto';
-    }
-
-    // ===== FUNCIONES DEL PRODUCTO =====
-    function changeImage(imgElement) {
-      currentImage.src = imgElement.src;
-    }
-
-    function loadProductData() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get('id');
-      
-      // PRODUCTOS COMPLETOS (los mismos que en tienda.html)
-      const productDatabase = [
-        {
-          id: 1,
-          name: "Ensalada Refrescante de Uvas, Feta/Mozzarella y Nueces",
-          price: 25.00,
-          oldPrice: 29.00,
-          image: "img/Carte1.jpeg",
-          description: "Una ensalada refrescante con uvas dulces, queso feta o mozzarella y nueces tostadas. Perfecta para una comida ligera y nutritiva.",
-          category: "Ensalada",
-          tags: ["Ensalada", "oferta", "Frutas", "Queso"],
-          popularity: 8,
-          rating: 4.5,
-          isNew: false
-        },
-        {
-          id: 2,
-          name: "Tostada de Salmón, Aguacate y Huevo con Semillas",
-          price: 84.00,
-          oldPrice: null,
-          image: "img/Espe3.jpeg",
-          description: "Tostada integral con salmón ahumado, aguacate cremoso, huevo pochado y semillas de sésamo y chía.",
-          category: "Tostada",
-          tags: ["Tostada", "Salmón", "Proteína"],
-          popularity: 9,
-          rating: 4.8,
-          isNew: true
-        },
-        {
-          id: 3,
-          name: "Tostada de Aguacate y Queso Halloumi a la Parrilla",
-          price: 15.00,
-          oldPrice: null,
-          image: "img/Carte7.jpeg",
-          description: "Tostada con aguacate fresco y queso halloumi a la parrilla, acompañada de germinados y aceite de oliva.",
-          category: "Tostada",
-          tags: ["Tostada", "Vegetariana", "Queso"],
-          popularity: 7,
-          rating: 4.3,
-          isNew: false
-        },
-        {
-          id: 4,
-          name: "Torre de Yogur, Avena y Bayas",
-          price: 95.00,
-          oldPrice: null,
-          image: "img/postreE1.jpeg",
-          description: "Capas de yogur griego, avena y bayas frescas. Un desayuno o merienda saludable y deliciosa.",
-          category: "Yogur",
-          tags: ["Yogur", "Desayuno", "Fruta"],
-          popularity: 6,
-          rating: 4.6,
-          isNew: true
-        },
-        {
-          id: 5,
-          name: "Ensalada de Otoño con Manzana, Nueces y Queso de Cabra",
-          price: 45.00,
-          oldPrice: null,
-          image: "img/postreE3.jpeg",
-          description: "Ensalada de temporada con manzana crujiente, nueces caramelizadas y queso de cabra cremoso.",
-          category: "Ensalada",
-          tags: ["Ensalada", "Otoño", "Queso"],
-          popularity: 7,
-          rating: 4.4,
-          isNew: false
-        },
-        {
-          id: 6,
-          name: "Tostada Caprese de Tomates Cherry y Queso",
-          price: 20.00,
-          oldPrice: null,
-          image: "img/postreE6.jpeg",
-          description: "Tostada estilo caprese con tomates cherry, mozzarella fresca, albahaca y reducción balsámica.",
-          category: "Tostada",
-          tags: ["Tostada", "Italiana", "Vegetariana"],
-          popularity: 8,
-          rating: 4.7,
-          isNew: false
-        },
-        {
-          id: 7,
-          name: "Bandeja de Frutas Frescas y Antioxidantes",
-          price: 110.00,
-          oldPrice: null,
-          image: "img/postreC1.jpeg",
-          description: "Selección de frutas frescas de temporada ricas en antioxidantes. Perfecta para compartir.",
-          category: "Frutas",
-          tags: ["Frutas", "Antioxidantes", "Saludable"],
-          popularity: 5,
-          rating: 4.2,
-          isNew: true
-        },
-        {
-          id: 8,
-          name: "Pudín de Chía Verde y Kiwi con Topping de Semillas",
-          price: 18.00,
-          oldPrice: null,
-          image: "img/postreC6.jpeg",
-          description: "Pudín de chía con kiwi verde y topping de semillas de girasol y calabaza. Rico en fibra y omega-3.",
-          category: "Pudín",
-          tags: ["Pudín", "Semillas", "Saludable"],
-          popularity: 9,
-          rating: 4.9,
-          isNew: false
-        },
-        {
-          id: 9,
-          name: "Parfait de Chía/Avena de Matcha",
-          price: 12.00,
-          oldPrice: null,
-          image: "img/postreE2.jpeg",
-          description: "Parfait de chía y avena con matcha, capas de frutas y granola crujiente.",
-          category: "Parfait",
-          tags: ["Parfait", "Avena", "Matcha"],
-          popularity: 8,
-          rating: 4.5,
-          isNew: false
-        },
-        {
-          id: 10,
-          name: "Ensalada de Pasta de Trigo Integral con Vegetales Frescos",
-          price: 22.00,
-          oldPrice: null,
-          image: "img/productos1.jpeg",
-          description: "Ensalada de pasta integral con vegetales frescos de temporada y aderezo de hierbas.",
-          category: "Ensalada",
-          tags: ["Ensalada", "Pasta", "Vegetales", "Integral"],
-          popularity: 7,
-          rating: 4.3,
-          isNew: true
-        },
-        {
-          id: 11,
-          name: "Tarta de Higo con Base de Miel y Frutos Secos",
-          price: 65.00,
-          oldPrice: null,
-          image: "img/principal3.jpeg",
-          description: "Tarta dulce con higos frescos, base de miel y frutos secos. Sin azúcar añadido.",
-          category: "Tarta",
-          tags: ["Tarta", "Frutos Secos", "Postre"],
-          popularity: 9,
-          rating: 4.8,
-          isNew: false
-        },
-        {
-          id: 12,
-          name: "Envolturas de Lechuga de Ensalada de Pollo y Manzana",
-          price: 28.00,
-          oldPrice: null,
-          image: "img/Carte4.jpeg",
-          description: "Envolturas de lechuga con ensalada de pollo, manzana y nueces. Ligera y proteica.",
-          category: "Envolturas",
-          tags: ["Envolturas", "Ensalada", "Pollo", "Proteína"],
-          popularity: 6,
-          rating: 4.4,
-          isNew: true
-        }
-      ];
-
-      if (productId) {
-        const product = productDatabase.find(p => p.id === parseInt(productId));
-        if (product) {
-          displayProduct(product);
-          return;
-        }
-      }
-      
-      // Si no hay ID o no se encuentra el producto, mostrar el primero por defecto
-      displayProduct(productDatabase[0]);
-    }
-
-    function displayProduct(product) {
-      productName.textContent = product.name;
-      productPrice.textContent = `$${product.price.toFixed(2)}`;
-      productDescription.textContent = product.description;
-      currentImage.src = product.image;
-      if (productCategory) {
-        productCategory.textContent = product.category;
-      }
-      document.title = `${product.name} - Nutricroc`;
-
-      // Actualizar thumbnails
-      document.querySelectorAll('.thumbnails img').forEach(img => {
-        img.src = product.image;
-      });
-      
-      // Guardar el producto actual para agregar al carrito
-      window.currentProduct = product;
-    }
-
-    function viewRelatedProduct(productId) {
-      const product = relatedProductsData.find(p => p.id === productId);
-      if (product) {
-        displayProduct(product);
-        // Hacer scroll al inicio de la página
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    function addRelatedToCart(event, productId) {
-      event.stopPropagation();
-      const product = relatedProductsData.find(p => p.id === productId);
-      if (product) {
-        addToCart(product);
-      }
     }
 
     // ===== FUNCIONES DEL CARRITO (COMPARTIDAS CON CÓDIGO 1) =====
@@ -3209,7 +2849,7 @@
       
       if (existingItemIndex !== -1) {
         // Si ya existe, aumentar la cantidad
-        cartItems[existingItemIndex].quantity += parseInt(productQuantity.value) || 1;
+        cartItems[existingItemIndex].quantity += 1;
         console.log('Producto existente, cantidad aumentada a:', cartItems[existingItemIndex].quantity);
       } else {
         // Si no existe, agregarlo como nuevo
@@ -3219,7 +2859,7 @@
           price: price,
           image: product.image,
           description: product.description || '',
-          quantity: parseInt(productQuantity.value) || 1
+          quantity: 1
         };
         cartItems.push(productToAdd);
         console.log('Nuevo producto agregado:', productToAdd);
@@ -3286,7 +2926,7 @@
       
       // Guardar el carrito en localStorage para pasarlo al checkout
       localStorage.setItem('checkout_cart_items', JSON.stringify(cartItems));
-      localStorage.setItem('checkout_referrer', 'producto.html');
+      localStorage.setItem('checkout_referrer', 'sobrenosotros.html');
       
       // Redirigir al checkout
       window.location.href = 'checkout.html';
@@ -3472,54 +3112,22 @@
 
     // ===== INICIALIZACIÓN =====
     function init() {
-      console.log('Inicializando página de producto...');
+      console.log('Inicializando página...');
       
       loadCartFromStorage();
       loadAuthStatus();
       updateCartUI();
       updateUserInterface();
-      loadProductData();
-      
-      // Producto principal - Agregar al carrito
-      addToCartBtn.addEventListener('click', function() {
-        console.log('Botón agregar al carrito clickeado');
-        console.log('Producto actual:', window.currentProduct);
-        
-        if (window.currentProduct) {
-          const quantity = parseInt(productQuantity.value) || 1;
-          const productToAdd = {
-            ...window.currentProduct,
-            quantity: quantity
-          };
-          addToCart(productToAdd);
-        } else {
-          console.error('No hay producto actual definido');
-          showNotification('Error: No se pudo agregar el producto');
-        }
-      });
-
-      // Productos relacionados - Click en la tarjeta
-      document.querySelectorAll('.related-product').forEach(card => {
-        card.addEventListener('click', function(e) {
-          if (!e.target.classList.contains('add-to-cart-btn')) {
-            const productId = Array.from(this.parentNode.children).indexOf(this) + 1;
-            viewRelatedProduct(productId);
-          }
-        });
-      });
       
       console.log('Inicialización completada');
     }
 
     // Hacer funciones disponibles globalmente
-    window.changeImage = changeImage;
     window.addToCart = addToCart;
     window.removeFromCart = removeFromCart;
     window.updateProductQuantity = updateProductQuantity;
     window.clearCart = clearCart;
     window.getCartItems = () => cartItems;
-    window.viewRelatedProduct = viewRelatedProduct;
-    window.addRelatedToCart = addRelatedToCart;
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);

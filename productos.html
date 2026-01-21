@@ -1951,6 +1951,15 @@
 
     /* ===== MEDIA QUERIES RESPONSIVE ===== */
     @media (max-width: 768px) {
+       input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+    transform: none !important;
+  }
       
        .cart-item-actions {
       display: flex;
@@ -2354,6 +2363,15 @@
     }
 
     @media (min-width: 769px) {
+       input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+    transform: none !important;
+  }
        .cart-item-actions {
       display: flex;
       gap: 40px; /* Aumentado de 10px a 15px para separar más los iconos */
@@ -2425,6 +2443,15 @@
     }
 
     @media (max-width: 480px) {
+       input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+    transform: none !important;
+  }
       .cart-empty-image {
     width: 300px;
     height: 250px;
@@ -2572,6 +2599,15 @@
     }
 
     @media (max-width: 360px) {
+       input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+    transform: none !important;
+  }
        .cart-item-actions {
       display: flex;
       gap: 10px; /* Aumentado de 10px a 15px para separar más los iconos */
@@ -2580,6 +2616,10 @@
         width: 90px;
         height: 90px;
       }
+      .header-image {
+      width: 100%;
+      height: 100px;
+    }
       
      
       
@@ -2629,14 +2669,19 @@
       }
       
       .header-image .header-image-right {
-      background: url('img/cocodriloproductos.png') center/contain no-repeat;
-        max-width: 300px;
+        width: 92%;
+        height: 120%;
+      background: url('img/imagenMovil3d.png') center/contain no-repeat;
+        max-width: 800px;
         transform: translateX(-25px);
+      }
+       .header-content-right {
+        height: 400px;
       }
       
       .header-image::before {
         width: 450px;
-        height: 450px;
+        height: 500px;
         transform: translateY(-50%) translateX(-40%);
       }
       
@@ -2704,7 +2749,7 @@
     </div>
     
     <div class="mobile-nav-item">
-      <a href="mantenimiento.html">Sobre Nosotros</a>
+      <a href="sobrenosotros.html">Sobre Nosotros</a>
     </div>
     
     <div class="mobile-nav-item">
@@ -2843,10 +2888,10 @@
           <a href="index.html">Inicio</a>
         </div>
         <div class="nav-item">
-          <a href="mantenimiento.html">Productos</a>
+          <a href="#">Productos</a>
         </div>
         <div class="nav-item">
-          <a href="mantenimiento.html">Sobre Nosotros</a>
+          <a href="sobrenosotros.html">Sobre Nosotros</a>
         </div>
       </nav>
 
@@ -3678,15 +3723,21 @@
     closeCart.addEventListener('click', closeCartFunc);
     cartOverlay.addEventListener('click', closeCartFunc);
 
+    // MODIFICACIÓN: El botón "Comprar" ahora redirige al checkout
     checkoutBtn.addEventListener('click', () => {
       if (cartItems.length === 0) {
         alert('Tu carrito está vacío. Agrega productos antes de comprar.');
         return;
       }
       
-      alert(`¡Compra realizada! Total: $${calculateCartTotals().total}\n\nEsta es una funcionalidad de demostración. En una implementación real, aquí se procesaría el pago.`);
+      // Guardar el carrito en localStorage para pasarlo al checkout
+      localStorage.setItem('checkout_cart_items', JSON.stringify(cartItems));
+      localStorage.setItem('checkout_referrer', 'productos.html');
       
-      clearCart();
+      // Redirigir al checkout
+      window.location.href = 'checkout.html';
+      
+      // Cerrar el carrito
       closeCartFunc();
     });
 
@@ -3878,17 +3929,21 @@
     // ===== EVENT LISTENERS PRINCIPALES =====
 
     // Filtrado y búsqueda
-    searchButton.addEventListener('click', () => {
-      currentSearch = searchInput.value.trim();
-      filterProducts();
-    });
+  searchInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    currentSearch = searchInput.value.trim();
+    filterProducts();
+    
+    // Desplazar hacia la sección de productos
+    setTimeout(() => {
+      productsSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 100);
+  }
+});
 
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        currentSearch = searchInput.value.trim();
-        filterProducts();
-      }
-    });
 
     minPriceRange.addEventListener('input', () => {
       let minValue = parseInt(minPriceRange.value);

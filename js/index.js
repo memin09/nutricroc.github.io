@@ -397,16 +397,21 @@ closeCart.addEventListener('click', closeCartFunc);
 cartOverlay.addEventListener('click', closeCartFunc);
 
 checkoutBtn.addEventListener('click', () => {
-  if (cartItems.length === 0) {
-    alert('Tu carrito está vacío. Agrega productos antes de comprar.');
-    return;
-  }
-  
-  alert(`¡Compra realizada! Total: $${calculateCartTotals().total}\n\nEsta es una funcionalidad de demostración. En una implementación real, aquí se procesaría el pago.`);
-  
-  clearCart();
-  closeCartFunc();
-});
+      if (cartItems.length === 0) {
+        alert('Tu carrito está vacío. Agrega productos antes de comprar.');
+        return;
+      }
+      
+      // Guardar el carrito en localStorage para pasarlo al checkout
+      localStorage.setItem('checkout_cart_items', JSON.stringify(cartItems));
+ 
+      localStorage.setItem('checkout_referrer', 'index.html');
+      // Redirigir al checkout
+      window.location.href = 'checkout.html';
+      
+      // Cerrar el carrito
+      closeCartFunc();
+    });
 
 // ===== FUNCIONALIDAD DEL USUARIO =====
 userBtn.addEventListener('click', (e) => {
