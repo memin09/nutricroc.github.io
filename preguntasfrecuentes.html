@@ -49,7 +49,7 @@
 
     body {
       font-family: 'Playfair Display', serif;
-      background: #e3efe3; /* Color de fondo que combina con el banner (#A8C9A8) */
+      background: #9ACD32; /* Color de fondo que combina con el banner (#A8C9A8) */
       margin: 0;
       padding: 0;
       color: #333;
@@ -105,7 +105,7 @@
     .nav-item > a {
       text-decoration: none;
       color: #333;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 500;
       transition: color 0.3s ease;
       padding: 12px 0;
@@ -1237,9 +1237,9 @@
 
     /* ===== FOOTER ===== */
     .footer-section {
-      background: url('img/nutriblanco.jpeg') center/700px 450px no-repeat;
+      background: url('img/nutriblanco.png') center/600px 450px no-repeat;
       padding: 60px 0 30px;
-      border-top: 1px solid #e3efe3;
+      border-top: 1px solid #7FAF2F;
       position: relative;
       width: 100%;
       overflow: hidden;
@@ -1252,7 +1252,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background:rgba(227, 239, 227, 0.85);
+      background:rgba(154, 205, 50, 0.85);
       z-index: 1;
     }
 
@@ -1439,7 +1439,7 @@
 
     .card {
       flex: 1;
-      background: linear-gradient(160deg, #b6d4b6, #9fbea1);
+      background: linear-gradient(160deg, #7FAF2F, #7FAF2F);
       border-radius: 26px;
       padding: 28px 22px;
       cursor: pointer;
@@ -1738,6 +1738,15 @@
     }
 
     @media (max-width: 480px) {
+        .footer-section {
+      background: 
+        url('img/nutriblanco.png')
+        center/600px 500px no-repeat;
+      padding: 60px 0 30px;
+      border-top: 1px solid #7FAF2F;
+
+      position: relative;
+    }
       .card img {
       width: 200px;
       height: auto;
@@ -1813,7 +1822,7 @@
       
       .footer-title {
         font-family: 'Classy Marisa';
-        font-size: 28px;
+        font-size: 32px;
       }
       
       .footer-subtitle {
@@ -1849,6 +1858,14 @@
     }
 
     @media (max-width: 360px) {
+        .footer-section {
+      background: 
+        url('img/nutriblanco.png')
+        center/500px 400px no-repeat;
+      padding: 60px 0 30px;
+      border-top: 1px solid #eee;
+      position: relative;
+    }
        .card img {
       width: 150px;
       height: auto;
@@ -1925,9 +1942,8 @@
         <div class="nav-item">
           <a href="productos.html">Productos</a>
         </div>
-        <div class="nav-item">
-          <a href="sobrenosotros.html">Sobre Nosotros</a>
-        </div>
+         <div class="nav-item"><a href="#"></a></div>
+      
       </nav>
 
       <div class="header-center">
@@ -1937,11 +1953,12 @@
       </div>
 
       <nav class="header-nav nav-right">
+       
         <div class="nav-item">
           <a href="#">Preguntas Frecuentes</a>
         </div>
-        <div class="nav-item">
-          <a href="contacto.html">Contacto</a>
+       <div class="nav-item">
+          <a href="sobrenosotros.html">Sobre Nosotros</a>
         </div>
       </nav>
       
@@ -2103,9 +2120,6 @@
       <a href="#">Preguntas Frecuentes</a>
     </div>
     
-    <div class="mobile-nav-item">
-      <a href="contacto.html">Contacto</a>
-    </div>
   </nav>
 
   <!-- ===== SECCIÓN FAQ DEL ARCHIVO 2 ===== -->
